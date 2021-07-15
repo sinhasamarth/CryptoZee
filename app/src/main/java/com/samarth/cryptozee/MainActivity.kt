@@ -3,15 +3,11 @@ package com.samarth.cryptozee
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.Menu
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samarth.cryptozee.data.model.MarketCoinResponse
-import com.samarth.cryptozee.data.model.MarketCoinResponseItem
 import com.samarth.cryptozee.data.repository.Repository
 import com.samarth.cryptozee.databinding.ActivityMainBinding
 import com.samarth.cryptozee.ui.adapters.MainHomeRecylerView
@@ -38,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             it?.let {
                 apiResponse = it
                 binding.homeRecylerView.adapter = MainHomeRecylerView(it)
-
             }
 
         })
@@ -50,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     // Implementation of Search Filter
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.serach_menu, menu)
+        menuInflater.inflate(R.menu.search_menu, menu)
         val item = menu?.findItem(R.id.menu_search_home)
         val searchView = item?.actionView as SearchView
         val searchResposne = apiResponse

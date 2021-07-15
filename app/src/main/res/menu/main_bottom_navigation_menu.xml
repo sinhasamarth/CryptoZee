@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/home"
+    android:icon="@drawable/home_24"
+    android:title="@string/home"
+    />
+
+    <item
+        android:id="@+id/news"
+        android:icon="@drawable/icons8_news"
+        android:title="@string/news"
+        />
+    <item
+        android:id="@+id/favourite"
+        android:icon="@drawable/favorite"
+        android:title="@string/Favourite"
+        />
+    <item
+        android:id="@+id/wallet"
+        android:icon="@drawable/icons8_wallet"
+        android:title="@string/Wallet"
+        />
+    <item
+        android:id="@+id/alerts"
+        android:icon="@drawable/ic_baseline_notifications_active_24"
+        android:title="@string/alerts"
+        />
 
 
 </menu>

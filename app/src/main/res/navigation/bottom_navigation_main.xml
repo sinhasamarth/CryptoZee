@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_navigation_main">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation_main"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.samarth.cryptozee.ui.base.fragments.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.samarth.cryptozee.NewsFragment"
+        android:label="news_fragment"
+        tools:layout="@layout/news_fragment" />
+    <fragment
+        android:id="@+id/alertFragment"
+        android:name="com.samarth.cryptozee.AlertFragment"
+        android:label="alert_fragment"
+        tools:layout="@layout/alert_fragment" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.samarth.cryptozee.favouriteFragment"
+        android:label="favourite_fragment"
+        tools:layout="@layout/favourite_fragment" />
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.samarth.cryptozee.WalletFragment"
+        android:label="wallet_fragment"
+        tools:layout="@layout/wallet_fragment" />
 </navigation>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/CoinsRecyclerView"
+            android:id="@+id/homeRecylerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
              />

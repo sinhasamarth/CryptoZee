@@ -12,4 +12,5 @@
     <string name="in_24_hours">In 24 hours</string>
     <string name="search">Search</string>
     <string name="enter_coin_name_symbol">Enter Coin Name / Symbol</string>
+    <string name="Favourite">Favourite</string>
 </resources>
