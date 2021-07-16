@@ -13,4 +13,18 @@
     <string name="search">Search</string>
     <string name="enter_coin_name_symbol">Enter Coin Name / Symbol</string>
     <string name="Favourite">Favourite</string>
+    <string name="n_a">N/A</string>
+    <string name="market_cap">Market Cap</string>
+    <string name="name">Name</string>
+    <string name="symbol">Symbol</string>
+    <string name="website">Website</string>
+    <string name="explore">Explore</string>
+    <string name="total_supply">Total Supply</string>
+    <string name="circulating_supply">Circulating Supply</string>
+    <string name="rank">Rank</string>
+    <string name="all">All</string>
+    <string name="_1y">1Y</string>
+    <string name="_1m">1M</string>
+    <string name="_1w">1W</string>
+    <string name="_1d">1D</string>
 </resources>

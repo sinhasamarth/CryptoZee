@@ -7,16 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.MarketCoinResponse
 import com.samarth.cryptozee.ui.dataFormatter.TextFormat
+import com.samarth.cryptozee.ui.listeners.HomeRecylerViewListeners
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.LOG_TAG
 
-class MainHomeRecylerView(val marketCoinResponse: MarketCoinResponse) :
-    RecyclerView.Adapter<MainHomeRecylerView.MainHomeViewHolder>() {
+class HomeRecylerViewAdapter(
+    val marketCoinResponse: MarketCoinResponse,
+    val homeRecylerViewListners: HomeRecylerViewListeners
+) :
+    RecyclerView.Adapter<HomeRecylerViewAdapter.MainHomeViewHolder>() {
     inner class MainHomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageofCoin = itemView.findViewById<ImageView>(R.id.CoinImage)
         val priceOfCoin = itemView.findViewById<TextView>(R.id.PriceOfCoin)
@@ -47,7 +50,7 @@ class MainHomeRecylerView(val marketCoinResponse: MarketCoinResponse) :
         holder.nameOfCoin.text = TextFormat.formatName(dataForSet.name)
 
         //Setting Price of Coin
-        Log.d(LOG_TAG,dataForSet.currentPrice.toString())
+        Log.d(LOG_TAG, dataForSet.currentPrice.toString())
         holder.priceOfCoin.text = TextFormat.formatPrice(dataForSet.currentPrice.toString())
 
         // Getting Formatted Data  of Change in 24 Hours
@@ -59,8 +62,7 @@ class MainHomeRecylerView(val marketCoinResponse: MarketCoinResponse) :
             //Change Colour to Red
             holder.changeIn24Hours.setTextColor(Color.parseColor("#F24E4E"))
             holder.changeIn24Hours.text = "$formattedChange%"
-        }
-        else {
+        } else {
             //Change Colour to Green
             holder.changeIn24Hours.setTextColor(Color.parseColor("#A2D970"))
             holder.changeIn24Hours.text = "+$formattedChange%"
@@ -69,9 +71,9 @@ class MainHomeRecylerView(val marketCoinResponse: MarketCoinResponse) :
 
         // Handling On Click On itemView
         holder.itemView.setOnClickListener {
-
+            homeRecylerViewListners.onItemClick(position)
         }
     }
 
-    override fun getItemCount() =  marketCoinResponse.size
+    override fun getItemCount() = marketCoinResponse.size
 }

@@ -1,24 +1,13 @@
 package com.samarth.cryptozee
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.samarth.cryptozee.data.model.MarketCoinResponse
-import com.samarth.cryptozee.data.repository.Repository
 import com.samarth.cryptozee.databinding.ActivityMainBinding
-import com.samarth.cryptozee.ui.adapters.MainHomeRecylerView
-import com.samarth.cryptozee.ui.base.viewModelFactory.MainViewModelFactory
-import com.samarth.cryptozee.ui.base.viewmodel.MainViewModel
 import android.graphics.Color
 
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.ActionBar
 
 
 private lateinit var binding: ActivityMainBinding

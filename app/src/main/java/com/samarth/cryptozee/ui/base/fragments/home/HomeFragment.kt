@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,15 +12,16 @@ import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.MarketCoinResponse
 import com.samarth.cryptozee.data.repository.Repository
 import com.samarth.cryptozee.databinding.HomeFragmentBinding
-import com.samarth.cryptozee.ui.adapters.MainHomeRecylerView
+import com.samarth.cryptozee.ui.adapters.HomeRecylerViewAdapter
 import com.samarth.cryptozee.ui.base.viewModelFactory.MainViewModelFactory
 import com.samarth.cryptozee.ui.base.viewmodel.MainViewModel
+import com.samarth.cryptozee.ui.listeners.HomeRecylerViewListeners
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.LOG_TAG
 
 private lateinit var binding: HomeFragmentBinding
 
-class HomeFragment : Fragment() {
-    private  var apiResponse: MarketCoinResponse = MarketCoinResponse()
+class HomeFragment : Fragment(), HomeRecylerViewListeners {
+    private var apiResponse: MarketCoinResponse = MarketCoinResponse()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
             it?.let {
                 Log.d(LOG_TAG, it.toString())
                 apiResponse = it
-                binding.homeRecylerView.adapter = MainHomeRecylerView(it)
+                binding.homeRecylerView.adapter = HomeRecylerViewAdapter(it, this)
             }
 
         })
@@ -47,19 +47,21 @@ class HomeFragment : Fragment() {
     }
 
 
+    // Setting Search Filters
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search_home)
         val searchView = item?.actionView as SearchView
         val searchResposne = apiResponse
-        binding.homeRecylerView.adapter = MainHomeRecylerView(searchResposne)
+        binding.homeRecylerView.adapter = HomeRecylerViewAdapter(searchResposne, this)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = false
 
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
                 searchResposne.clear()
-                binding.homeRecylerView.adapter = MainHomeRecylerView(searchResposne)
+                binding.homeRecylerView.adapter =
+                    HomeRecylerViewAdapter(searchResposne, this@HomeFragment)
                 binding.homeRecylerView.adapter?.notifyDataSetChanged()
                 val lowercaseAllQuery = newText?.lowercase()
                 if (lowercaseAllQuery!!.isNotEmpty()) {
@@ -75,8 +77,18 @@ class HomeFragment : Fragment() {
                 binding.homeRecylerView.adapter?.notifyDataSetChanged()
                 return false
             }
-
         })
         return super.onCreateOptionsMenu(menu, inflater)
     }
+
+    override fun onItemClick(position: Int) {
+        // Replacing Fragment
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, SingleCoinDetail())
+            .addToBackStack("home")
+            .commit()
+
+    }
+
 }
