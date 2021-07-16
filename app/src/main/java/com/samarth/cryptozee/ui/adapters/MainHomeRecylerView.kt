@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.samarth.cryptozee.R
@@ -35,7 +36,6 @@ class MainHomeRecylerView(val marketCoinResponse: MarketCoinResponse) :
     }
 
     override fun onBindViewHolder(holder: MainHomeViewHolder, position: Int) {
-
         val dataForSet = marketCoinResponse[position]
         //Setting Image
         Glide.with(holder.itemView.context)
@@ -73,8 +73,5 @@ class MainHomeRecylerView(val marketCoinResponse: MarketCoinResponse) :
         }
     }
 
-    override fun getItemCount(): Int = marketCoinResponse.size
-
-
-
+    override fun getItemCount() =  marketCoinResponse.size
 }
