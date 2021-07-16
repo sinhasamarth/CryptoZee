@@ -8,6 +8,13 @@ import com.samarth.cryptozee.databinding.ActivityMainBinding
 import android.graphics.Color
 
 import android.graphics.drawable.ColorDrawable
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.samarth.cryptozee.ui.base.fragments.home.HomeFragment
+import com.samarth.cryptozee.ui.base.viewmodel.MainViewModel
 
 
 private lateinit var binding: ActivityMainBinding
@@ -19,7 +26,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setActionBarColor()
+//        setActionBarColor()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2 ) as NavHostFragment
+      navHostFragment.navController
     }
 
     private fun setActionBarColor() {
@@ -29,38 +38,4 @@ class MainActivity : AppCompatActivity() {
             actionBar?.setBackgroundDrawable(colorDrawable)
         }
     }
-
-    // Implementation of Search Filter
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.search_menu, menu)
-//        val item = menu?.findItem(R.id.menu_search_home)
-//        val searchView = item?.actionView as SearchView
-//        val searchResposne = apiResponse
-//        binding.homeRecylerView.adapter = MainHomeRecylerView(searchResposne)
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?) = false
-//            @SuppressLint("NotifyDataSetChanged")
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                searchResposne.clear()
-//                binding.homeRecylerView.adapter = MainHomeRecylerView(searchResposne)
-//                binding.homeRecylerView.adapter?.notifyDataSetChanged()
-//                val lowercaseAllQuery = newText?.lowercase()
-//                if (lowercaseAllQuery!!.isNotEmpty()) {
-//                    apiResponse.forEach {
-//                        if(it.name.lowercase().contains(lowercaseAllQuery))
-//                            searchResposne.add(it)
-//                        else if((it.symbol.lowercase().contains(lowercaseAllQuery)))
-//                                searchResposne.add(it)
-//                    }
-//                }
-//                else{
-//                    searchResposne.addAll(apiResponse)
-//                }
-//                binding.homeRecylerView.adapter?.notifyDataSetChanged()
-//                return false
-//            }
-//
-//        })
-//        return super.onCreateOptionsMenu(menu)
-//    }
 }

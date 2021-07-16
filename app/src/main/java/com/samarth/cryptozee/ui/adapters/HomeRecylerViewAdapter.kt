@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.samarth.cryptozee.R
-import com.samarth.cryptozee.data.model.MarketCoinResponse
+import com.samarth.cryptozee.data.model.MarketListCoinResponse.MarketCoinResponse
 import com.samarth.cryptozee.ui.dataFormatter.TextFormat
 import com.samarth.cryptozee.ui.listeners.HomeRecylerViewListeners
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.LOG_TAG
@@ -54,20 +54,7 @@ class HomeRecylerViewAdapter(
         holder.priceOfCoin.text = TextFormat.formatPrice(dataForSet.currentPrice.toString())
 
         // Getting Formatted Data  of Change in 24 Hours
-        val formattedChange =
-            TextFormat.getChangeFormatted(dataForSet.priceChangePercentage24h.toString())
-
-        // Setting the Data of Change in 24 hours with Colours
-        if (formattedChange < 0) {
-            //Change Colour to Red
-            holder.changeIn24Hours.setTextColor(Color.parseColor("#F24E4E"))
-            holder.changeIn24Hours.text = "$formattedChange%"
-        } else {
-            //Change Colour to Green
-            holder.changeIn24Hours.setTextColor(Color.parseColor("#A2D970"))
-            holder.changeIn24Hours.text = "+$formattedChange%"
-
-        }
+       TextFormat.getChangeFormatted(dataForSet.priceChangePercentage24h.toString() , holder.changeIn24Hours)
 
         // Handling On Click On itemView
         holder.itemView.setOnClickListener {

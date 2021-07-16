@@ -4,16 +4,21 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samarth.cryptozee.R
-import com.samarth.cryptozee.data.model.MarketCoinResponse
+import com.samarth.cryptozee.data.model.MarketListCoinResponse.MarketCoinResponse
 import com.samarth.cryptozee.data.repository.Repository
 import com.samarth.cryptozee.databinding.HomeFragmentBinding
 import com.samarth.cryptozee.ui.adapters.HomeRecylerViewAdapter
-import com.samarth.cryptozee.ui.base.viewModelFactory.MainViewModelFactory
 import com.samarth.cryptozee.ui.base.viewmodel.MainViewModel
 import com.samarth.cryptozee.ui.listeners.HomeRecylerViewListeners
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.LOG_TAG
@@ -21,6 +26,7 @@ import com.samarth.cryptozee.utils.CONSTANTS.Companion.LOG_TAG
 private lateinit var binding: HomeFragmentBinding
 
 class HomeFragment : Fragment(), HomeRecylerViewListeners {
+    val viewModel: MainViewModel  by activityViewModels()
     private var apiResponse: MarketCoinResponse = MarketCoinResponse()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,11 +37,9 @@ class HomeFragment : Fragment(), HomeRecylerViewListeners {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         binding.homeRecylerView.layoutManager = LinearLayoutManager(context)
-        val repository = Repository()
-        val viewModel = MainViewModelFactory(repository)
-        val viewModelFactory = ViewModelProvider(this, viewModel).get(MainViewModel::class.java)
-        viewModelFactory.getAllCoin()
-        viewModelFactory.allCoinResponse.observe(viewLifecycleOwner, {
+
+        viewModel.getAllCoin()
+        viewModel.allCoinResponse.observe(viewLifecycleOwner, {
             it?.let {
                 Log.d(LOG_TAG, it.toString())
                 apiResponse = it
@@ -82,13 +86,13 @@ class HomeFragment : Fragment(), HomeRecylerViewListeners {
     }
 
     override fun onItemClick(position: Int) {
+
+        // Setting argument
         // Replacing Fragment
 
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, SingleCoinDetail())
-            .addToBackStack("home")
-            .commit()
-
+        viewModel.marketCoinResponse = apiResponse[position]
+        findNavController().navigate(R.id.action_homeFragment_to_singleCoinDetail)
     }
+
 
 }

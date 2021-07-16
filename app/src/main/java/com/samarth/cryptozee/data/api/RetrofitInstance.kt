@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
     private val retrofit by lazy{
-        //Building Retrofit Instnace
+        //Building Retrofit Instance
         Retrofit.Builder()
             .baseUrl(URL_API_COINGECKO)
             .addConverterFactory(GsonConverterFactory.create())
@@ -15,4 +15,5 @@ object RetrofitInstance {
     val responseAllCoin:AllApiRequests by lazy {
         retrofit.create(AllApiRequests::class.java)
     }
+
 }

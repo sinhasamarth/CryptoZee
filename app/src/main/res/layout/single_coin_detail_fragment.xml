@@ -273,7 +273,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/Exolore_url"
+                        android:id="@+id/Explore_url"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
