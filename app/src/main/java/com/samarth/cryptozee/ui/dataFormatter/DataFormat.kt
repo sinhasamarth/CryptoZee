@@ -57,6 +57,7 @@ object DataFormat {
             .toString()
     }
 
+    //Format Name to Fix Overlap
     fun formatName(name: String): String {
         return if (name.length >= 14) {
             name.substring(0, 11) + "..."
@@ -66,7 +67,7 @@ object DataFormat {
 
     }
 
-
+    // Getting The  Domain  Name
     fun getHost(url: String): String {
 
         var isSubdmomain = false
@@ -93,10 +94,12 @@ object DataFormat {
             .toString())
     }
 
+    // Formatting MarketCapValue
     fun marketCapTextFormatter(rawPrice: String): String {
         return ("$" + DecimalFormat("#,##,##,###").format(rawPrice.toDouble()).toString())
     }
 
+    // Changing Api Response of Chart To ArrayList
     fun formatChartResponse(rawData: ArrayList<SingleCoinChartResponse>): ArrayList<ArrayList<Double>> {
         val response = ArrayList<ArrayList<Double>>(0)
         try {
@@ -112,6 +115,7 @@ object DataFormat {
         return response
     }
 
+    // Changing Api Response To ArrayList
     private fun getResponseofCharttoArrayList(rawData: SingleCoinChartResponse): ArrayList<Double> {
         val response = ArrayList<Double>(0)
         rawData.prices.forEach {
@@ -125,6 +129,12 @@ object DataFormat {
             }
         }
         return response
+    }
+
+    // Setting Text To infinite
+    fun changeTextToNA(textView: TextView) {
+        textView.setTextColor(Color.parseColor("#A2D970"))
+        textView.setText("N/A")
     }
 
 }

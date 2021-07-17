@@ -35,7 +35,12 @@ object SetSingleCoinData {
                 Log.d("TAG", e.toString())
             }
             if (response.marketData.totalSupply.toString().isNotEmpty()) {
-                this.totalSupply.text = response.marketData.totalSupply.toInt().toString()
+                if( response.marketData.totalSupply.toInt().toString().equals("0")){
+                    DataFormat.changeTextToNA(this.totalSupply)
+                }
+                else {
+                    this.totalSupply.text = response.marketData.totalSupply.toInt().toString()
+                }
             }
             if (response.marketData.circulatingSupply.toString().isNotEmpty()) {
                 this.circulatingSupply.text =
@@ -51,25 +56,28 @@ object SetSingleCoinData {
     fun setAllChartsToView(
         response: ArrayList<SingleCoinChartResponse>,
         binding: SingleCoinDetailFragmentBinding,
+        coinDetailResponse: SingleCoinDetailResponse?,
     ) {
         val formattedResponse = DataFormat.formatChartResponse(response)
         binding.toggleButton.check(R.id.OneDay)
-        setToChart(formattedResponse, binding.chart, 0)
+        DataFormat.getChangeFormatted(coinDetailResponse.toString(),binding.changeInCoin )
+        setToChart(formattedResponse, binding, 0, coinDetailResponse)
         binding.toggleButton.addOnButtonCheckedListener { _, checkedId, _ ->
             when (checkedId) {
-                R.id.OneDay -> setToChart(formattedResponse, binding.chart, 0)
-                R.id.OneWeek -> setToChart(formattedResponse, binding.chart, 1)
-                R.id.OneMonth -> setToChart(formattedResponse, binding.chart, 2)
-                R.id.OneYear -> setToChart(formattedResponse, binding.chart, 3)
-                R.id.max -> setToChart(formattedResponse, binding.chart, 4)
+                R.id.OneDay -> setToChart(formattedResponse, binding, 0  ,coinDetailResponse)
+                R.id.OneWeek -> setToChart(formattedResponse, binding, 1  ,coinDetailResponse)
+                R.id.OneMonth -> setToChart(formattedResponse, binding, 2  ,coinDetailResponse)
+                R.id.OneYear -> setToChart(formattedResponse, binding, 3  ,coinDetailResponse)
+                R.id.max -> setToChart(formattedResponse, binding, 4  ,coinDetailResponse)
             }
         }
     }
 
     private fun setToChart(
         prices: ArrayList<ArrayList<Double>>,
-        chart: AAChartView,
-        interval: Int
+        binding: SingleCoinDetailFragmentBinding,
+        interval: Int,
+        responseSingleCoin: SingleCoinDetailResponse?
     ) {
         val aaChartModel: AAChartModel = AAChartModel()
             .chartType(AAChartType.Line)
@@ -87,7 +95,13 @@ object SetSingleCoinData {
                         .data(prices[interval].toArray())
                 )
             )
-        chart.aa_drawChartWithChartModel(aaChartModel)
+        binding.chart.aa_drawChartWithChartModel(aaChartModel)
+        when(interval){
+            1 -> DataFormat.getChangeFormatted(responseSingleCoin!!.marketData.priceChangePercentage7d.toString(),binding.changeInCoin)
+            2 -> DataFormat.getChangeFormatted(responseSingleCoin!!.marketData.priceChangePercentage30d.toString(),binding.changeInCoin)
+            3 -> DataFormat.getChangeFormatted(responseSingleCoin!!.marketData.priceChangePercentage1y.toString(),binding.changeInCoin)
+            4 -> DataFormat.changeTextToNA(binding.changeInCoin)
+        }
     }
 
 }
