@@ -6,5 +6,6 @@ class CONSTANTS {
         val LOG_TAG by lazy { "MYDEBUGTAG" }
         val SINGLE_COIN_URL_DETAIL_SUFFIX by lazy {  "/?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"}
         val SINGLE_COIN_URL_DETAIL_PREFIX  by lazy{ "coins/"}
+        val SINGLE_COIN_CHART_SUFFIX by lazy { "/market_chart?vs_currency=usd&days=" }
     }
 }

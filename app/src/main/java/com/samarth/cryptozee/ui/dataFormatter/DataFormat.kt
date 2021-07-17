@@ -1,12 +1,21 @@
 package  com.samarth.cryptozee.ui.dataFormatter
 
 import android.graphics.Color
+import android.util.Log
 import android.widget.TextView
+import com.samarth.cryptozee.data.model.SingleCoinResponse.SingleCoinChartResponse
+import com.samarth.cryptozee.data.model.SingleCoinResponse.SingleCoinDetailResponse
+import kotlinx.coroutines.flow.asFlow
 import java.math.BigDecimal
 import java.net.URL
+import java.text.DateFormat
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
-object TextFormat {
+object DataFormat {
     fun getChangeFormatted(rawData: String?, textView: TextView): TextView {
         var finalChange = ""
         try {
@@ -39,9 +48,9 @@ object TextFormat {
     }
 
     fun formatPrice(rawPrice: String): String {
-        if (rawPrice.toDouble()<= 0.01){
+        if (rawPrice.toDouble() <= 0.01) {
             val price = BigDecimal(rawPrice)
-           return "$" + price.toString()
+            return "$" + price.toString()
         }
         return "$ " + DecimalFormat("##,###.##")
             .format(rawPrice.toDouble())
@@ -68,22 +77,54 @@ object TextFormat {
 
         }
         for (counter in 0 until urlHost.length) {
-            if (urlHost.get(counter).equals('.')&& isSubdmomain) {
+            if (urlHost.get(counter).equals('.') && isSubdmomain) {
                 trimToDomain = true
                 break
             } else if (urlHost.get(counter).equals('.')) {
                 isSubdmomain = true
             }
         }
-       if (trimToDomain){
-           urlHost = urlHost.replaceBefore('.',"")
-       }
+        if (trimToDomain) {
+            urlHost = urlHost.replaceBefore('.', "")
+            urlHost = urlHost.subSequence(1,urlHost.length-1).toString()
+
+        }
         return (urlHost.get(0).uppercaseChar().toString() + urlHost.subSequence(1, urlHost.length)
             .toString())
     }
 
     fun marketCapTextFormatter(rawPrice: String): String {
         return ("$" + DecimalFormat("#,##,##,###").format(rawPrice.toDouble()).toString())
+    }
+
+    fun formatChartResponse(rawData: ArrayList<SingleCoinChartResponse>): ArrayList<ArrayList<Double>> {
+        val response = ArrayList<ArrayList<Double>>(0)
+        try {
+            response.add(getResponseofCharttoArrayList(rawData[0]))
+            response.add(getResponseofCharttoArrayList(rawData[1]))
+            response.add(getResponseofCharttoArrayList(rawData[2]))
+            response.add(getResponseofCharttoArrayList(rawData[3]))
+            response.add(getResponseofCharttoArrayList(rawData[4]))
+
+        } catch (e: Exception) {
+
+        }
+        return response
+    }
+
+    private fun getResponseofCharttoArrayList(rawData: SingleCoinChartResponse): ArrayList<Double> {
+        val response = ArrayList<Double>(0)
+        rawData.prices.forEach {
+            if (it[1] >= 0.01) {
+                response.add(
+                    DecimalFormat("#####.##")
+                        .format(it[1]).toDouble()
+                )
+            } else {
+                response.add(it[1])
+            }
+        }
+        return response
     }
 
 }

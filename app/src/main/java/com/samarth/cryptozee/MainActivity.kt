@@ -26,9 +26,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setActionBarColor()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2 ) as NavHostFragment
-      navHostFragment.navController
+        setupActionBarWithNavController(navHostFragment.navController,null)
+
+        navHostFragment.navController
     }
 
     private fun setActionBarColor() {

@@ -12,7 +12,7 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    val responseAllCoin:AllApiRequests by lazy {
+    val responseAllApi:AllApiRequests by lazy {
         retrofit.create(AllApiRequests::class.java)
     }
 

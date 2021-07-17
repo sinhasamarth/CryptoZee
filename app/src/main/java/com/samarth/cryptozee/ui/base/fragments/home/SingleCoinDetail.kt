@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import com.samarth.cryptozee.MainActivity
 import com.samarth.cryptozee.data.repository.Repository
 import com.samarth.cryptozee.databinding.SingleCoinDetailFragmentBinding
 import com.samarth.cryptozee.ui.adapters.HomeRecylerViewAdapter
@@ -30,16 +31,17 @@ class SingleCoinDetail : Fragment() {
         return binding!!.root
     }
 
-    fun Refreshit(){
+    private fun Refreshit(){
         val viewModel = MainViewModel()
-        viewModel.getSingleCoinDetail(viewModelShared.marketCoinResponse?.id.toString())
+        val coinId = viewModelShared.marketCoinResponse?.id.toString()
+        viewModel.getSingleCoinDetail(coinId)
         viewModel.singleCoinResponse.observe(viewLifecycleOwner, { response ->
-            SetSingleCoinData(response, binding!! , viewModelShared.marketCoinResponse!!)
+            SetSingleCoinData.setAllTextDataToView(response, binding!! , viewModelShared.marketCoinResponse!!)
+        })
+        viewModel.getCoinChart(coinId)
+        viewModel.singleCoinChartResponse.observe(viewLifecycleOwner , {response->
+           SetSingleCoinData.setAllChartsToView( response, binding!!)
         })
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        binding = null
-    }
 }

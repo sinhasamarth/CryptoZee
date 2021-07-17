@@ -22,6 +22,9 @@ import com.samarth.cryptozee.ui.adapters.HomeRecylerViewAdapter
 import com.samarth.cryptozee.ui.base.viewmodel.MainViewModel
 import com.samarth.cryptozee.ui.listeners.HomeRecylerViewListeners
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.LOG_TAG
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 private lateinit var binding: HomeFragmentBinding
 
@@ -52,23 +55,25 @@ class HomeFragment : Fragment(), HomeRecylerViewListeners {
 
 
     // Setting Search Filters
+    val searchResposne = apiResponse
+    var queryText:String ?= null
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search_home)
         val searchView = item?.actionView as SearchView
-        val searchResposne = apiResponse
         binding.homeRecylerView.adapter = HomeRecylerViewAdapter(searchResposne, this)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = false
 
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
+                queryText = newText!!
                 searchResposne.clear()
                 binding.homeRecylerView.adapter =
                     HomeRecylerViewAdapter(searchResposne, this@HomeFragment)
                 binding.homeRecylerView.adapter?.notifyDataSetChanged()
-                val lowercaseAllQuery = newText?.lowercase()
-                if (lowercaseAllQuery!!.isNotEmpty()) {
+                val lowercaseAllQuery = newText.lowercase()
+                if (lowercaseAllQuery.isNotEmpty()) {
                     apiResponse.forEach {
                         if (it.name.lowercase().contains(lowercaseAllQuery))
                             searchResposne.add(it)
@@ -86,12 +91,15 @@ class HomeFragment : Fragment(), HomeRecylerViewListeners {
     }
 
     override fun onItemClick(position: Int) {
+            // Setting argument
+            // Replacing Fragment
+            if (queryText.isNullOrBlank()) {
+                viewModel.marketCoinResponse = apiResponse[position]
+            } else {
+                viewModel.marketCoinResponse = searchResposne[position]
+            }
+            findNavController().navigate(R.id.action_homeFragment_to_singleCoinDetail)
 
-        // Setting argument
-        // Replacing Fragment
-
-        viewModel.marketCoinResponse = apiResponse[position]
-        findNavController().navigate(R.id.action_homeFragment_to_singleCoinDetail)
     }
 
 
