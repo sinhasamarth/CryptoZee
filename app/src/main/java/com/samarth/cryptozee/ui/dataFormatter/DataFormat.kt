@@ -11,6 +11,7 @@ import kotlin.collections.ArrayList
 
 object DataFormat {
     @SuppressLint("SetTextI18n")
+
     fun getChangeFormatted(rawData: String?, textView: TextView): TextView {
         var finalChange = ""
         try {
@@ -45,7 +46,7 @@ object DataFormat {
     fun formatPrice(rawPrice: String): String {
         if (rawPrice.toDouble() <= 0.01) {
             val price = BigDecimal(rawPrice)
-            return "$" + price.toString()
+            return "$$price"
         }
         return "$ " + DecimalFormat("##,###.##")
             .format(rawPrice.toDouble())
@@ -72,11 +73,11 @@ object DataFormat {
             urlHost = urlHost.replace("www.", "")
 
         }
-        for (counter in 0 until urlHost.length) {
-            if (urlHost.get(counter).equals('.') && isSubdmomain) {
+        for (counter in urlHost.indices) {
+            if (urlHost[counter] == '.' && isSubdmomain) {
                 trimToDomain = true
                 break
-            } else if (urlHost.get(counter).equals('.')) {
+            } else if (urlHost[counter] == '.') {
                 isSubdmomain = true
             }
         }
@@ -85,14 +86,10 @@ object DataFormat {
             urlHost = urlHost.subSequence(1,urlHost.length-1).toString()
 
         }
-        return (urlHost.get(0).uppercaseChar().toString() + urlHost.subSequence(1, urlHost.length)
+        return (urlHost[0].uppercaseChar().toString() + urlHost.subSequence(1, urlHost.length)
             .toString())
     }
 
-    // Formatting MarketCapValue
-    fun marketCapTextFormatter(rawPrice: String): String {
-        return ("$" + DecimalFormat("#,##,##,###").format(rawPrice.toDouble()).toString())
-    }
 
     // Changing Api Response of Chart To ArrayList
     fun formatChartResponse(rawData: ArrayList<SingleCoinChartResponse>): ArrayList<ArrayList<Double>> {
@@ -129,7 +126,7 @@ object DataFormat {
     // Setting Text To infinite
     fun changeTextToNA(textView: TextView) {
         textView.setTextColor(Color.parseColor("#A2D970"))
-        textView.setText("N/A")
+        textView.text = "N/A"
     }
 
 }
