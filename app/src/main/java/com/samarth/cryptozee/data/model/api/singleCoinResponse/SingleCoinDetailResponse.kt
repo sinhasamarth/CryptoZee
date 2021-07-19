@@ -1,9 +1,7 @@
-package com.samarth.cryptozee.data.model.SingleCoinResponse
+package com.samarth.cryptozee.data.model.api.singleCoinResponse
 
 
 import com.google.gson.annotations.SerializedName
-import com.samarth.cryptozee.data.model.SingleCoinResponse.Links
-import com.samarth.cryptozee.data.model.SingleCoinResponse.MarketData
 
 data class SingleCoinDetailResponse(
     @SerializedName("id")
@@ -17,5 +15,7 @@ data class SingleCoinDetailResponse(
     @SerializedName("name")
     val name: String,
     @SerializedName("symbol")
-    val symbol: String
+    val symbol: String,
+    @SerializedName("image")
+    val imageLink:ImageLink
 )

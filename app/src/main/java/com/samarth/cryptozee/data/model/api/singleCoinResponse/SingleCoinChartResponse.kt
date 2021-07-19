@@ -1,4 +1,4 @@
-package com.samarth.cryptozee.data.model.SingleCoinResponse
+package com.samarth.cryptozee.data.model.api.singleCoinResponse
 
 
 import com.google.gson.annotations.SerializedName

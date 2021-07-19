@@ -1,21 +1,16 @@
 package  com.samarth.cryptozee.ui.dataFormatter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
-import android.util.Log
 import android.widget.TextView
-import com.samarth.cryptozee.data.model.SingleCoinResponse.SingleCoinChartResponse
-import com.samarth.cryptozee.data.model.SingleCoinResponse.SingleCoinDetailResponse
-import kotlinx.coroutines.flow.asFlow
+import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import java.math.BigDecimal
 import java.net.URL
-import java.text.DateFormat
 import java.text.DecimalFormat
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 object DataFormat {
+    @SuppressLint("SetTextI18n")
     fun getChangeFormatted(rawData: String?, textView: TextView): TextView {
         var finalChange = ""
         try {

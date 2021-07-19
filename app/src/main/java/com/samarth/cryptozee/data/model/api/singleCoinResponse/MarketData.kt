@@ -1,9 +1,11 @@
-package com.samarth.cryptozee.data.model.SingleCoinResponse
+package com.samarth.cryptozee.data.model.api.singleCoinResponse
 
 
 import com.google.gson.annotations.SerializedName
 
 data class MarketData(
+    @SerializedName("current_price")
+    val current_price:CurrentPrice,
     @SerializedName("circulating_supply")
     val circulatingSupply: Double,
     @SerializedName("market_cap_change_24h")

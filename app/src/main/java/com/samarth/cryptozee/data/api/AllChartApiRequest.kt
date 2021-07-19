@@ -1,6 +1,6 @@
 package com.samarth.cryptozee.data.api
 
-import com.samarth.cryptozee.data.model.SingleCoinResponse.SingleCoinChartResponse
+import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_CHART_SUFFIX
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_URL_DETAIL_PREFIX
 

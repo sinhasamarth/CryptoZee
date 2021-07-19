@@ -8,26 +8,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.samarth.cryptozee.R
-import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
+import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
+import com.samarth.cryptozee.ui.base.fragments.favourite.FavouriteFragment
 import com.samarth.cryptozee.ui.dataFormatter.DataFormat
 import com.samarth.cryptozee.ui.listeners.SingleCoinItemClickListeners
 
-class HomeRecylerViewAdapter(
-    val marketCoinResponse: MarketCoinResponse,
-    val itemClickListners: SingleCoinItemClickListeners
-) :
-    RecyclerView.Adapter<HomeRecylerViewAdapter.MainHomeViewHolder>() {
-    inner class MainHomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageofCoin = itemView.findViewById<ImageView>(R.id.CoinImage)
+class FavouriteHomeAdapter(private val listFavouriteEntity: List<FavouriteEntity>,   val itemClickListners: FavouriteFragment) :
+    RecyclerView.Adapter<FavouriteHomeAdapter.FavouriteViewHolder>() {
+
+    inner class FavouriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imageOfCoin = itemView.findViewById<ImageView>(R.id.CoinImage)
         val priceOfCoin = itemView.findViewById<TextView>(R.id.PriceOfCoin)
         val nameOfCoin = itemView.findViewById<TextView>(R.id.NameOfCoin)
         val changeIn24Hours = itemView.findViewById<TextView>(R.id.changeIn24hours)
-
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHomeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
         return (
-                MainHomeViewHolder(
+                FavouriteViewHolder(
                     LayoutInflater.from(parent.context).inflate(
                         R.layout.crypto_show_recylce_elements,
                         parent, false
@@ -35,28 +33,31 @@ class HomeRecylerViewAdapter(
                 ))
     }
 
-    override fun onBindViewHolder(holder: MainHomeViewHolder, position: Int) {
-        val dataForSet = marketCoinResponse[position]
+    override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
+        val dataForSet = listFavouriteEntity[position]
         //Setting Image
         Glide.with(holder.itemView.context)
-            .load(dataForSet.image)
+            .load(dataForSet.coin_Image_Link)
             .placeholder(R.drawable.ic_icons8_loading)
-            .into(holder.imageofCoin)
+            .into(holder.imageOfCoin)
 
         //Setting Name of Coin
-        holder.nameOfCoin.text = DataFormat.formatName(dataForSet.name)
+        holder.nameOfCoin.text = DataFormat.formatName(dataForSet.coinName!!)
 
         //Setting Price of Coin
-//        Log.d(LOG_TAG, dataForSet.currentPrice.toString())
-        holder.priceOfCoin.text = DataFormat.formatPrice(dataForSet.currentPrice)
+        holder.priceOfCoin.text = DataFormat.formatPrice(dataForSet.price!!)
 
         // Getting Formatted Data  of Change in 24 Hours
-       DataFormat.getChangeFormatted(dataForSet.priceChangePercentage24h.toString() , holder.changeIn24Hours)
+        DataFormat.getChangeFormatted(
+            dataForSet.coin_Change_In_24H.toString(),
+            holder.changeIn24Hours
+        )
 
         // Handling On Click On itemView
         holder.itemView.setOnClickListener {
             itemClickListners.onItemClick(position)
         }
     }
-    override fun getItemCount() = marketCoinResponse.size
+
+    override fun getItemCount(): Int = listFavouriteEntity.size
 }

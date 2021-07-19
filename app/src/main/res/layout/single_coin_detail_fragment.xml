@@ -31,20 +31,20 @@
                     android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/toggleButton2"
+                    app:layout_constraintEnd_toStartOf="@+id/favtoggleButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ToggleButton
-                    android:id="@+id/toggleButton2"
+                <ImageView
+                    android:tag="OFF"
+                    android:id="@+id/favtoggleButton"
+                    android:src="@drawable/ic_baseline_favorite_border_24"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/favorite"
-                    android:textOff=""
-                    android:textOn=""
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                   />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -340,31 +340,6 @@
                         android:textStyle="normal" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="7dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/market_cap"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/market_cap"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/n_a"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="normal" />
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 

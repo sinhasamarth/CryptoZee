@@ -1,9 +1,8 @@
 package com.samarth.cryptozee.data.api
 
-import com.samarth.cryptozee.data.model.MarketListCoinResponse.MarketCoinResponse
-import com.samarth.cryptozee.data.model.SingleCoinResponse.SingleCoinChartResponse
-import com.samarth.cryptozee.data.model.SingleCoinResponse.SingleCoinDetailResponse
-import com.samarth.cryptozee.ui.base.fragments.home.SingleCoinDetail
+import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
+import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
+import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
 import retrofit2.http.GET
 import retrofit2.http.Url
 

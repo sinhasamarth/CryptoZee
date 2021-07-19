@@ -1,5 +1,5 @@
 package com.samarth.cryptozee.ui.listeners
 
-interface HomeRecylerViewListeners {
+interface SingleCoinItemClickListeners {
     fun onItemClick( position:Int)
 }

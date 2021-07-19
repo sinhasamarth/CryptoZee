@@ -1,4 +1,4 @@
-package com.samarth.cryptozee.data.model.MarketListCoinResponse
+package com.samarth.cryptozee.data.model.api.marketListCoinResponse
 
 
 import com.google.gson.annotations.SerializedName
