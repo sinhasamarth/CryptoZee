@@ -27,4 +27,6 @@
     <string name="_1m">1M</string>
     <string name="_1w">1W</string>
     <string name="_1d">1D</string>
+    <string name="price_alert">Price Alert</string>
+    <string name="loading">Loading...</string>
 </resources>

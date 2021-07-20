@@ -1,14 +1,16 @@
 package com.samarth.cryptozee
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.samarth.cryptozee.databinding.ActivityMainBinding
 import android.graphics.Color
 
 import android.graphics.drawable.ColorDrawable
+import android.view.View
 import androidx.appcompat.app.ActionBar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -16,10 +18,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.airbnb.lottie.LottieAnimationView
 import com.samarth.cryptozee.data.model.localStorage.database.LocalStorageDatabase
 import com.samarth.cryptozee.data.repository.Repository
 import com.samarth.cryptozee.data.viewModelFactory.ViewModelFactorys
 import com.samarth.cryptozee.data.viewmodel.MainViewModel
+import com.samarth.cryptozee.databinding.ActivityMainBinding
+import com.samarth.cryptozee.service.ForegroundService
 import kotlinx.coroutines.GlobalScope
 
 
@@ -37,6 +42,7 @@ private  lateinit var   navHostFragment:NavHostFragment
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         createSharedViewModel()
         setUpBottomNavigation()
+        ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
     }
 
     private fun setUpBottomNavigation() {
@@ -48,7 +54,7 @@ private  lateinit var   navHostFragment:NavHostFragment
 
     private fun createSharedViewModel() {
         val gettingDataBaseReference = LocalStorageDatabase.getDatabase(this)
-        val repository = Repository(gettingDataBaseReference.favouriteDao())
+        val repository = Repository(gettingDataBaseReference.favouriteDao(),gettingDataBaseReference.alertDao())
         viewModelShared =
             ViewModelProvider(this, ViewModelFactorys(repository)).get(MainViewModel::class.java)
     }
@@ -58,6 +64,14 @@ private  lateinit var   navHostFragment:NavHostFragment
             val actionBar = supportActionBar
             val colorDrawable = ColorDrawable(Color.parseColor("#001434"))
             actionBar?.setBackgroundDrawable(colorDrawable)
+        }
+    }
+    companion object{
+        fun startLoading(){
+            binding.loadingAnimation.visibility= View.VISIBLE
+        }
+        fun stopLoading(){
+            binding.loadingAnimation.visibility= View.GONE
         }
     }
 }

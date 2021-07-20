@@ -4,6 +4,8 @@ import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinRes
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.Url
 
 interface AllApiRequests {
@@ -15,7 +17,7 @@ interface AllApiRequests {
 
     // Single Coin Data
     @GET
-    suspend fun getSingleCoinDetails(@Url coinName: String): SingleCoinDetailResponse
+    suspend fun getSingleCoinDetails(@Url coinName: String ): SingleCoinDetailResponse
 
 
     //MarketChart

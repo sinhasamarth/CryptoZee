@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.samarth.cryptozee.MainActivity
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
+import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
 import com.samarth.cryptozee.databinding.HomeFragmentBinding
 import com.samarth.cryptozee.ui.adapters.HomeRecylerViewAdapter
 import com.samarth.cryptozee.ui.listeners.SingleCoinItemClickListeners
@@ -31,14 +34,12 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
         binding = HomeFragmentBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        if (savedInstanceState != null)
-         Log.d("HII", savedInstanceState.getInt("LastAdapterPosition").toString())
-        else
-            Log.d("HII", lastPosistion.toString())
+        MainActivity.startLoading()
         binding.homeRecylerView.layoutManager = LinearLayoutManager(context)
         viewModelShared.getAllCoin()
         viewModelShared.allCoinResponse.observe(viewLifecycleOwner, {
             it?.let {
+                MainActivity.stopLoading()
                 Log.d(LOG_TAG, it.toString())
                 apiResponse = it
                 binding.homeRecylerView.adapter = HomeRecylerViewAdapter(it, this)
@@ -88,10 +89,13 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
     override fun onItemClick(position: Int) {
         // Setting argument
         // Replacing Fragment
-        if (queryText.isNullOrBlank())
-            viewModelShared.coinIDForSharing = apiResponse[position].id
-        else
-            viewModelShared.coinIDForSharing = searchResposne[position].id
+        val data = if (queryText.isNullOrBlank()) apiResponse[position]
+                    else searchResposne[position]
+          viewModelShared.apply {
+              this.coinIDForSharing = data.id
+              this.coinForSharingChange = data.priceChangePercentage24h.toString()
+              this.coinForSharingImage = data.image
+          }
 
         findNavController().navigate(R.id.action_homeFragment_to_singleCoinDetail)
 

@@ -2,6 +2,7 @@ package  com.samarth.cryptozee.ui.dataFormatter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.util.Log
 import android.widget.TextView
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import java.math.BigDecimal
@@ -44,6 +45,7 @@ object DataFormat {
     }
 
     fun formatPrice(rawPrice: String): String {
+
         if (rawPrice.toDouble() <= 0.01) {
             val price = BigDecimal(rawPrice)
             return "$$price"
@@ -102,7 +104,7 @@ object DataFormat {
             response.add(getResponseofCharttoArrayList(rawData[4]))
 
         } catch (e: Exception) {
-
+            Log.d("EXEPTION ", e.toString())
         }
         return response
     }

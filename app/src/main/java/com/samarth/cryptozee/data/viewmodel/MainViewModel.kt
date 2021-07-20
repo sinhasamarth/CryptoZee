@@ -1,6 +1,7 @@
 package com.samarth.cryptozee.data.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinRes
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponseItem
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
+import com.samarth.cryptozee.data.model.localStorage.entities.AlertEntity
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
 import com.samarth.cryptozee.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
@@ -18,19 +20,21 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     //Calling On Object Create
     init {
         getAllFavouriteCoin()
+
     }
     //LiveData
 
+
     val allCoinResponse: MutableLiveData<MarketCoinResponse> = MutableLiveData<MarketCoinResponse>()
-    val singleCoinResponse: MutableLiveData<SingleCoinDetailResponse> =
-        MutableLiveData<SingleCoinDetailResponse>()
-    val singleCoinChartResponse: MutableLiveData<ArrayList<SingleCoinChartResponse>> =
-        MutableLiveData<ArrayList<SingleCoinChartResponse>>()
-    val allFavouriteCoin: MutableLiveData<List<FavouriteEntity>> =
-        MutableLiveData<List<FavouriteEntity>>()
+    val singleCoinResponse: MutableLiveData<SingleCoinDetailResponse> = MutableLiveData<SingleCoinDetailResponse>()
+    val singleCoinChartResponse: MutableLiveData<ArrayList<SingleCoinChartResponse>> = MutableLiveData<ArrayList<SingleCoinChartResponse>>()
+    val allFavouriteCoin: MutableLiveData<List<FavouriteEntity>> = MutableLiveData<List<FavouriteEntity>>()
+    val allAlertCoin:LiveData<List<AlertEntity>> = repository.allAlertCoin
 
     //Sharing Data Between Fragments
     var coinIDForSharing:String ?=null
+    var coinForSharingChange: String ?= null
+    var coinForSharingImage: String ?= null
 
     fun getAllCoin() {
         viewModelScope.launch {
@@ -77,6 +81,18 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun removeCoinFromFavourite( entity: FavouriteEntity){
         viewModelScope.launch(Dispatchers.IO) {
             repository.delFavourite(entity)
+        }
+    }
+    //Alert
+
+    fun addToAlert(alertEntity: AlertEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addToAlert(alertEntity)
+        }
+    }
+    fun delAlert(alertEntity: AlertEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.delAlert(alertEntity)
         }
     }
 }

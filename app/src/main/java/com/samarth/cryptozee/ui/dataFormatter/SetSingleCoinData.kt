@@ -2,22 +2,25 @@ package com.samarth.cryptozee.ui.dataFormatter
 
 import android.graphics.Color
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.samarth.cryptozee.MainActivity
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
-import com.samarth.cryptozee.databinding.SingleCoinDetailFragmentBinding
+import  com.samarth.cryptozee.databinding.SingleCoinDetailFragmentBinding
 import com.samarth.cryptozee.viewModelShared
 
 object SetSingleCoinData {
+
 
     //Setting Data For SingleCoin Fragment
     fun setAllTextDataToView(
         response: SingleCoinDetailResponse,
         binding: SingleCoinDetailFragmentBinding,
     ) {
-
+        MainActivity.startLoading()
         // Setting Data From Response
         binding.apply {
             NameOfCoin.text = response.name
@@ -48,32 +51,28 @@ object SetSingleCoinData {
                 this.circulatingSupply.text =
                     response.marketData.circulatingSupply.toInt().toString()
             }
-            viewModelShared.allFavouriteCoin.value!!.forEach {
-                if (it.coinId == response.id) {
-                    binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                    binding.favtoggleButton.tag = "ON"
-                }
-            }
+
         }
+        MainActivity.stopLoading()
     }
+
 
     // Setting And Caching the Chart
     fun setAllChartsToView(
         response: ArrayList<SingleCoinChartResponse>,
         binding: SingleCoinDetailFragmentBinding,
-        coinDetailResponse: SingleCoinDetailResponse?,
     ) {
         val formattedResponse = DataFormat.formatChartResponse(response)
         binding.toggleButton.check(R.id.OneDay)
-        DataFormat.getChangeFormatted(coinDetailResponse.toString(), binding.changeInCoin)
-        setToChart(formattedResponse, binding, 0, coinDetailResponse)
+        DataFormat.getChangeFormatted(viewModelShared.coinForSharingChange.toString(), binding.changeInCoin)
+        setToChart(formattedResponse, binding, 0)
         binding.toggleButton.addOnButtonCheckedListener { _, checkedId, _ ->
             when (checkedId) {
-                R.id.OneDay -> setToChart(formattedResponse, binding, 0, coinDetailResponse)
-                R.id.OneWeek -> setToChart(formattedResponse, binding, 1, coinDetailResponse)
-                R.id.OneMonth -> setToChart(formattedResponse, binding, 2, coinDetailResponse)
-                R.id.OneYear -> setToChart(formattedResponse, binding, 3, coinDetailResponse)
-                R.id.max -> setToChart(formattedResponse, binding, 4, coinDetailResponse)
+                R.id.OneDay -> setToChart(formattedResponse, binding, 0)
+                R.id.OneWeek -> setToChart(formattedResponse, binding, 1)
+                R.id.OneMonth -> setToChart(formattedResponse, binding, 2)
+                R.id.OneYear -> setToChart(formattedResponse, binding, 3)
+                R.id.max -> setToChart(formattedResponse, binding, 4)
             }
         }
     }
@@ -81,8 +80,7 @@ object SetSingleCoinData {
     private fun setToChart(
         prices: ArrayList<ArrayList<Double>>,
         binding: SingleCoinDetailFragmentBinding,
-        interval: Int,
-        responseSingleCoin: SingleCoinDetailResponse?
+        interval: Int
     ) {
         val aaChartModel: AAChartModel = AAChartModel()
             .chartType(AAChartType.Line)
@@ -101,23 +99,7 @@ object SetSingleCoinData {
                 )
             )
         binding.chart.aa_drawChartWithChartModel(aaChartModel)
-        when (interval) {
-            1 -> DataFormat.getChangeFormatted(
-                responseSingleCoin!!.marketData.priceChangePercentage7d.toString(),
-                binding.changeInCoin
-            )
-            2 -> DataFormat.getChangeFormatted(
-                responseSingleCoin!!.marketData.priceChangePercentage30d.toString(),
-                binding.changeInCoin
-            )
-            3 -> DataFormat.getChangeFormatted(
-                responseSingleCoin!!.marketData.priceChangePercentage1y.toString(),
-                binding.changeInCoin
-            )
-            4 -> DataFormat.changeTextToNA(binding.changeInCoin)
-        }
+
     }
-
-
 
 }
