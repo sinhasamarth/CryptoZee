@@ -1,5 +1,6 @@
 package com.samarth.cryptozee.utils
 
+import android.app.PendingIntent
 import com.samarth.cryptozee.service.ForegroundService
 
 class CONSTANTS {
@@ -10,5 +11,6 @@ class CONSTANTS {
         val SINGLE_COIN_URL_DETAIL_PREFIX  by lazy{ "coins/"}
         val SINGLE_COIN_CHART_SUFFIX by lazy { "/market_chart?vs_currency=usd&days=" }
         val ForegroundService_FLAG:Int by lazy { 100}
+        val PendingIntent_ForegroundService_FLAG:Int by lazy { 10}
     }
 }

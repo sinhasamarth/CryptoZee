@@ -31,9 +31,17 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
         binding = HomeFragmentBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        // Starting Loading
+
         MainActivity.startLoading()
+
+        // Setting Recycler View Layout
         binding.homeRecylerView.layoutManager = LinearLayoutManager(context)
+
+        // Calling for getting the coin from API
         viewModelShared.getAllCoin()
+
+        // Setting to recycler View
         viewModelShared.allCoinResponse.observe(viewLifecycleOwner, {
             it?.let {
                 MainActivity.stopLoading()
@@ -44,6 +52,7 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
             }
         })
 
+        // Returning View
         return binding.root
     }
 
@@ -83,6 +92,7 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
+    // On click item Handler
     override fun onItemClick(position: Int) {
         // Setting argument
         // Replacing Fragment

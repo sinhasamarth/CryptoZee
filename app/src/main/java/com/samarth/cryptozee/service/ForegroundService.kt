@@ -13,23 +13,30 @@ import com.samarth.cryptozee.MainActivity
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.localStorage.entities.AlertEntity
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.ForegroundService_FLAG
+import com.samarth.cryptozee.utils.CONSTANTS.Companion.PendingIntent_ForegroundService_FLAG
 import com.samarth.cryptozee.viewModelShared
 
 class ForegroundService:Service() {
-    val p = 100
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         createNotificationChannel("my_service", "My Background Service")
+
         val intent = Intent(this, MainActivity::class.java)
+
         intent.putExtra("Destination", "Alert")
-        val pendingIntent = PendingIntent.getActivity(this , 10 , intent , p)
+
+        val pendingIntent = PendingIntent.getActivity(this , 10 , intent ,PendingIntent_ForegroundService_FLAG )
+
         val notification: Notification = Notification.Builder(this,"my_service")
             .setContentTitle(getText(R.string.alerts))
             .setContentText(getText(R.string.price_alert))
             .setSmallIcon(R.drawable.ic_checked)
             .setContentIntent(pendingIntent)
             .build()
+
         startForeground(ForegroundService_FLAG,notification)
+
         startApiCalls()
         return super.onStartCommand(intent, flags, startId)
     }
