@@ -1,6 +1,8 @@
 package com.samarth.cryptozee.data.viewmodel
 
+import android.content.Intent
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +14,7 @@ import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailR
 import com.samarth.cryptozee.data.model.localStorage.entities.AlertEntity
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
 import com.samarth.cryptozee.data.repository.Repository
+import com.samarth.cryptozee.service.ForegroundService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -83,6 +86,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             repository.delFavourite(entity)
         }
     }
+
     //Alert
 
     fun addToAlert(alertEntity: AlertEntity){

@@ -8,7 +8,10 @@ import android.os.Bundle
 import android.graphics.Color
 
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
+import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +28,7 @@ import com.samarth.cryptozee.data.viewModelFactory.ViewModelFactorys
 import com.samarth.cryptozee.data.viewmodel.MainViewModel
 import com.samarth.cryptozee.databinding.ActivityMainBinding
 import com.samarth.cryptozee.service.ForegroundService
+import com.samarth.cryptozee.ui.base.fragments.alert.AlertFragment
 import kotlinx.coroutines.GlobalScope
 
 
@@ -34,15 +38,38 @@ lateinit var viewModelShared: MainViewModel
 class MainActivity : AppCompatActivity() {
 
 private  lateinit var   navHostFragment:NavHostFragment
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-         navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+         navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         createSharedViewModel()
         setUpBottomNavigation()
-        ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
+        ForegroundServieManager()
+        navigationChecker()
+
+    }
+
+    private fun navigationChecker() {
+        if(!intent.getStringExtra("Destination").isNullOrBlank()){
+            navHostFragment.navController.navigate(R.id.action_homeFragment_to_alertFragment)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun ForegroundServieManager() {
+        viewModelShared.allAlertCoin.observe(this , {
+            if (!it.isNullOrEmpty()){
+                Log.d("MYTAG", "STARTED FOREGROUDN")
+                applicationContext.startForegroundService(Intent(this , ForegroundService::class.java))
+            }
+            else {
+                Log.d("MYTAG", "STOP FOREGROUDN")
+                applicationContext.stopService(Intent(this , ForegroundService::class.java))
+            }
+        })
+
     }
 
     private fun setUpBottomNavigation() {
@@ -59,13 +86,13 @@ private  lateinit var   navHostFragment:NavHostFragment
             ViewModelProvider(this, ViewModelFactorys(repository)).get(MainViewModel::class.java)
     }
 
-    private fun setActionBarColor() {
-        if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES) {
-            val actionBar = supportActionBar
-            val colorDrawable = ColorDrawable(Color.parseColor("#001434"))
-            actionBar?.setBackgroundDrawable(colorDrawable)
-        }
-    }
+//    private fun setActionBarColor() {
+//        if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES) {
+//            val actionBar = supportActionBar
+//            val colorDrawable = ColorDrawable(Color.parseColor("#001434"))
+//            actionBar?.setBackgroundDrawable(colorDrawable)
+//        }
+//    }
     companion object{
         fun startLoading(){
             binding.loadingAnimation.visibility= View.VISIBLE
@@ -74,4 +101,6 @@ private  lateinit var   navHostFragment:NavHostFragment
             binding.loadingAnimation.visibility= View.GONE
         }
     }
+
+
 }

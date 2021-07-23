@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.samarth.cryptozee.MainActivity
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.databinding.AlertFragmentBinding
 import com.samarth.cryptozee.service.ForegroundService
@@ -31,6 +32,7 @@ class AlertFragment : Fragment(),SingleCoinItemClickListeners{
     private fun setRecyclerView() {
         binding.recylerViewAlert.layoutManager = LinearLayoutManager(context)
             viewModelShared.allAlertCoin.observe(viewLifecycleOwner,{data->
+                MainActivity.stopLoading()
                 binding.recylerViewAlert.adapter = FavouriteHomeAdapter(listAlertEntity = data , itemClickListnersAlert = this)
             })
     }
