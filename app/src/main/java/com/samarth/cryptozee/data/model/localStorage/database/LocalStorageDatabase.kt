@@ -5,12 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.samarth.cryptozee.data.model.localStorage.dao.FavouriteDao
+import com.samarth.cryptozee.data.model.localStorage.dao.TransationDao
+import com.samarth.cryptozee.data.model.localStorage.dao.WalletDetailDao
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
 
-@Database(entities = [FavouriteEntity::class], version = 2, exportSchema = false)
+@Database(entities = [FavouriteDao::class ], version = 2, exportSchema = false)
 abstract class LocalStorageDatabase : RoomDatabase() {
 
     abstract fun favouriteDao(): FavouriteDao
+//    abstract fun transactionDao():TransationDao
+//    abstract fun WalletDetailDao():WalletDetailDao
     //Apply Singleton Class
     companion object {
         @Volatile

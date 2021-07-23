@@ -5,10 +5,10 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favourite_Table ")
+@Entity(tableName = "favourite_Table")
 data class FavouriteEntity(
         @PrimaryKey
-        val coinId: String,
+        val coinId: String?,
         @ColumnInfo(name = "coin_Name")
         val coinName: String?,
         @ColumnInfo(name = "coin_Price")

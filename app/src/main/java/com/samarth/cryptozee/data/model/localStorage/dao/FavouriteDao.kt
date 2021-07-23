@@ -6,7 +6,7 @@ import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
 @Dao
 interface FavouriteDao {
 
-    @Query("SELECT * FROM `favourite_table ` ORDER BY coinId ASC ")
+    @Query("SELECT * FROM favourite_Table ORDER BY coinId ASC ")
     fun getAllFavourite():List<FavouriteEntity>
 
     @Insert(onConflict =  OnConflictStrategy.IGNORE ,)

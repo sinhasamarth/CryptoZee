@@ -56,7 +56,6 @@ class SingleCoinDetail : Fragment() {
                 viewModelShared.removeCoinFromFavourite(element)
                 binding!!.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
-
         }
         return binding!!.root
     }

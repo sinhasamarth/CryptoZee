@@ -6,343 +6,384 @@
     android:layout_height="match_parent"
     tools:context=".ui.base.fragments.home.SingleCoinDetail">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        tools:context=".OnClick">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15sp">
-
-
-                <TextView
-                    android:id="@+id/NameOfCoin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Coin Name"
-                    android:textAlignment="textStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/favtoggleButton"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:tag="OFF"
-                    android:id="@+id/favtoggleButton"
-                    android:src="@drawable/ic_baseline_favorite_border_24"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                   />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/NameOfCoin">
-
-                    <TextView
-                        android:id="@+id/PriceOfCoin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Bitcoin"
-                        android:textAlignment="textStart"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/changeInCoin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="Bitcoin"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-                    android:id="@+id/chart"
-                    android:layout_width="0dp"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintBottom_toTopOf="@id/toggleButton"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linearLayout" />
-
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/toggleButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/chart"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
-
-                    <Button
-                        android:id="@+id/OneDay"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_1d" />
-
-                    <Button
-                        android:id="@+id/OneWeek"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_1w" />
-
-                    <Button
-                        android:id="@+id/OneMonth"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_1m" />
-
-                    <Button
-                        android:id="@+id/OneYear"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_1y" />
-
-                    <Button
-                        android:id="@+id/max"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/all" />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            tools:context=".OnClick">
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/recyler_view_upper_round"
                 android:orientation="vertical"
-                android:padding="15sp">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="7dp">
+                    android:padding="15sp">
+
 
                     <TextView
-
+                        android:id="@+id/NameOfCoin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/rank"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="16dp"
+                        android:text="Coin Name"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/favtoggleButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/rank"
-                        android:layout_width="0dp"
+                    <ImageView
+                        android:id="@+id/favtoggleButton"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_baseline_favorite_border_24"
+                        android:tag="OFF"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/n_a"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/NameOfCoin">
 
-                    
-                        android:textStyle="normal" />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/PriceOfCoin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bitcoin"
+                            android:textAlignment="textStart"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/changeInCoin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Bitcoin"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                        android:id="@+id/chart"
+                        android:layout_width="0dp"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintBottom_toTopOf="@id/toggleButton"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggleButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/chart"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <Button
+                            android:id="@+id/OneDay"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1d" />
+
+                        <Button
+                            android:id="@+id/OneWeek"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1w" />
+
+                        <Button
+                            android:id="@+id/OneMonth"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1m" />
+
+                        <Button
+                            android:id="@+id/OneYear"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1y" />
+
+                        <Button
+                            android:id="@+id/max"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/all" />
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
+                    android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="7dp">
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/recyler_view_upper_round"
+                    android:orientation="vertical"
+                    android:padding="15sp">
 
-                    <TextView
-
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="bold" />
+                        android:padding="7dp">
 
-                    <TextView
-                        android:id="@+id/NameOfCoins"
-                        android:layout_width="0dp"
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/rank"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/rank"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/n_a"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:padding="7dp">
 
-                    
-                        android:textStyle="normal" />
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/name"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/NameOfCoins"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp">
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/symbol"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Symbol"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="3"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/website"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/website"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="3"
+                        android:padding="7dp">
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/explore"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Explore_url"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp">
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/total_supply"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_supply"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/circulating_supply"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/circulating_supply"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="7dp">
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/symbol"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Symbol"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/n_a"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textStyle="normal" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="7dp">
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/website"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/website"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/n_a"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    
-                        android:textStyle="normal" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="7dp">
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/explore"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Explore_url"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/n_a"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="normal" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="7dp">
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/total_supply"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/total_supply"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/n_a"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    
-                        android:textStyle="normal" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/circulating_supply"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/circulating_supply"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/n_a"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    
-                        android:textStyle="normal" />
-                </LinearLayout>
-
             </LinearLayout>
+
+
+        </ScrollView>
+
+        <LinearLayout
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Bg"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_marginEnd="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#4CAF50"
+                android:text="BUY"
+                android:textColor="@color/TextWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#E91E1E"
+                android:text="SELL"
+                android:textColor="@color/TextWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
         </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </ScrollView>
 </FrameLayout>

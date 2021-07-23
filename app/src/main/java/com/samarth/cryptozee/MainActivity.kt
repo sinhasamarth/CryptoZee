@@ -41,8 +41,8 @@ private  lateinit var   navHostFragment:NavHostFragment
 
     private fun setUpBottomNavigation() {
        binding.bottomNavigation.setupWithNavController(navHostFragment.navController)
-        val appConfiguration = AppBarConfiguration(setOf(R.id.homeFragment,R.id.newsFragment,R.id.favouriteFragment,R.id.walletFragment , R.id.alertFragment))
-        setupActionBarWithNavController(navHostFragment.navController,appConfiguration)
+//        val appConfiguration = AppBarConfiguration(setOf(R.id.homeFragment,R.id.newsFragment,R.id.favouriteFragment,R.id.walletFragment , R.id.alertFragment))
+//        setupActionBarWithNavController(navHostFragment.navController,appConfiguration)
     }
 
 
