@@ -28,19 +28,19 @@ lateinit var viewModelShared: MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-private  lateinit var   navHostFragment:NavHostFragment
+    private lateinit var navHostFragment: NavHostFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-         navHostFragment =
+        navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         createSharedViewModel()
         setUpBottomNavigation()
     }
 
     private fun setUpBottomNavigation() {
-       binding.bottomNavigation.setupWithNavController(navHostFragment.navController)
+        binding.bottomNavigation.setupWithNavController(navHostFragment.navController)
 //        val appConfiguration = AppBarConfiguration(setOf(R.id.homeFragment,R.id.newsFragment,R.id.favouriteFragment,R.id.walletFragment , R.id.alertFragment))
 //        setupActionBarWithNavController(navHostFragment.navController,appConfiguration)
     }
@@ -48,7 +48,11 @@ private  lateinit var   navHostFragment:NavHostFragment
 
     private fun createSharedViewModel() {
         val gettingDataBaseReference = LocalStorageDatabase.getDatabase(this)
-        val repository = Repository(gettingDataBaseReference.favouriteDao())
+        val repository = Repository(
+            gettingDataBaseReference.favouriteDao(),
+            gettingDataBaseReference.WalletDetailDao(),
+            gettingDataBaseReference.transactionDao()
+        )
         viewModelShared =
             ViewModelProvider(this, ViewModelFactorys(repository)).get(MainViewModel::class.java)
     }

@@ -1,14 +1,13 @@
 package com.samarth.cryptozee.data.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponseItem
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.WalletDetailsEntity
 import com.samarth.cryptozee.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +27,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         MutableLiveData<ArrayList<SingleCoinChartResponse>>()
     val allFavouriteCoin: MutableLiveData<List<FavouriteEntity>> =
         MutableLiveData<List<FavouriteEntity>>()
+
+    //Wallet Details
+    val walletDetail :MutableLiveData<WalletDetailsEntity> =MutableLiveData<WalletDetailsEntity>()
 
     //Sharing Data Between Fragments
     var coinIDForSharing:String ?=null
@@ -79,4 +81,20 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             repository.delFavourite(entity)
         }
     }
+
+    // Wallet
+
+    fun createWallet(walletDetailsEntity: WalletDetailsEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addDetailToWallet(walletDetailsEntity)
+        }
+    }
+
+    fun getWalletDetails(){
+        viewModelScope.launch (Dispatchers.IO){
+            walletDetail.postValue(repository.getDetail())
+        }
+
+    }
+
 }

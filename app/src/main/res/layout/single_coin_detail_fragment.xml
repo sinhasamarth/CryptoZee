@@ -361,6 +361,7 @@
             app:layout_constraintLeft_toLeftOf="parent">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/buyButton"
                 android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -373,11 +374,12 @@
                 app:layout_constraintLeft_toLeftOf="parent" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/sellButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="#E91E1E"
-                android:text="SELL"
+                android:text="@string/sell"
                 android:textColor="@color/TextWhite"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

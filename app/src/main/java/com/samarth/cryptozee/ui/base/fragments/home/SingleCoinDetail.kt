@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
@@ -13,7 +14,7 @@ import com.samarth.cryptozee.databinding.SingleCoinDetailFragmentBinding
 import com.samarth.cryptozee.ui.dataFormatter.SetSingleCoinData
 import com.samarth.cryptozee.viewModelShared
 
-private var binding: SingleCoinDetailFragmentBinding? = null
+private  lateinit var binding: SingleCoinDetailFragmentBinding
 
 class SingleCoinDetail : Fragment() {
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -29,16 +30,16 @@ class SingleCoinDetail : Fragment() {
         viewModelShared.singleCoinResponse.observe(viewLifecycleOwner, { response ->
             SetSingleCoinData.setAllTextDataToView(
                 response,
-                binding!!,
+                binding,
             )
             coinDetailResponse = response
         })
         viewModelShared.getCoinChart(coinId)
         viewModelShared.singleCoinChartResponse.observe(viewLifecycleOwner, { response ->
-            SetSingleCoinData.setAllChartsToView(response, binding!!, coinDetailResponse)
+            SetSingleCoinData.setAllChartsToView(response, binding, coinDetailResponse)
         })
 
-        binding!!.favtoggleButton.setOnClickListener {
+        binding.favtoggleButton.setOnClickListener {
             val element = FavouriteEntity(
                 coinDetailResponse!!.id,
                 coinDetailResponse!!.name,
@@ -47,17 +48,23 @@ class SingleCoinDetail : Fragment() {
                 coinDetailResponse!!.marketData.priceChangePercentage24h.toString()
             )
 
-            if (binding!!.favtoggleButton.tag != "ON") {
-                binding!!.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+            if (binding.favtoggleButton.tag != "ON") {
+                binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
                 viewModelShared.addToFavourites(element)
-                binding!!.favtoggleButton.tag = "ON"
+                binding.favtoggleButton.tag = "ON"
             } else {
-                binding!!.favtoggleButton.tag = "OFF"
+                binding.favtoggleButton.tag = "OFF"
                 viewModelShared.removeCoinFromFavourite(element)
-                binding!!.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
         }
-        return binding!!.root
+
+        //Buy Button
+        //Getting The Usable Value
+        binding.buyButton.setOnClickListener{
+            Toast.makeText(requireContext() , viewModelShared.walletDetail.toString() , Toast.LENGTH_LONG).show()
+        }
+        return binding.root
     }
 
 

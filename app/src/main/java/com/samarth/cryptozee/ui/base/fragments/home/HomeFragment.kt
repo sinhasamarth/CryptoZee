@@ -46,6 +46,9 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
             }
         })
 
+
+        //Temp
+        findNavController().navigate(R.id.action_homeFragment_to_walletFragment)
         return binding.root
     }
 

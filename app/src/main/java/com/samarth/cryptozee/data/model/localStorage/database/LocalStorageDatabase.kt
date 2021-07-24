@@ -5,16 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.samarth.cryptozee.data.model.localStorage.dao.FavouriteDao
-import com.samarth.cryptozee.data.model.localStorage.dao.TransationDao
+import com.samarth.cryptozee.data.model.localStorage.dao.TransactionDao
 import com.samarth.cryptozee.data.model.localStorage.dao.WalletDetailDao
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.TransactionEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.WalletDetailsEntity
 
-@Database(entities = [FavouriteDao::class ], version = 2, exportSchema = false)
+@Database(entities = [FavouriteEntity::class, TransactionEntity::class , WalletDetailsEntity::class ], version = 4, exportSchema = false)
 abstract class LocalStorageDatabase : RoomDatabase() {
 
     abstract fun favouriteDao(): FavouriteDao
-//    abstract fun transactionDao():TransationDao
-//    abstract fun WalletDetailDao():WalletDetailDao
+    abstract fun transactionDao(): TransactionDao
+    abstract fun WalletDetailDao(): WalletDetailDao
     //Apply Singleton Class
     companion object {
         @Volatile
@@ -25,7 +27,7 @@ abstract class LocalStorageDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                         context.applicationContext,
                         LocalStorageDatabase::class.java,
-                        "word_database"
+                        "database"
                 ).build()
                 INSTANCE = instance
                 // return instance

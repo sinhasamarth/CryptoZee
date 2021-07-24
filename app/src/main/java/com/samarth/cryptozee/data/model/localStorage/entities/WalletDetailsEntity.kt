@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 data class WalletDetailsEntity(
     @PrimaryKey(autoGenerate = true)
     val id:Int,
+    @ColumnInfo(name = "owner_name")
+    val name:String,
     @ColumnInfo(name = "Total_Portfolio_Value")
     val totalPortfolio:String,
     @ColumnInfo(name = "Usable_Money")
