@@ -81,6 +81,7 @@ class WalletFragment : Fragment() {
 
         }
 
+
         binding.WalletIntroFrameLayout.addView(customView)
         button.setOnClickListener {
             Snackbar.make(binding.root, name.text.toString(), Snackbar.LENGTH_LONG).show()
@@ -96,8 +97,6 @@ class WalletFragment : Fragment() {
             )
             binding.walletDetailsLayout.visibility = View.VISIBLE
         }
-
-
     }
 
 

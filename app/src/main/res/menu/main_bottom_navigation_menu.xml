@@ -7,11 +7,6 @@
     />
 
     <item
-        android:id="@+id/newsFragment"
-        android:icon="@drawable/icons8_news"
-        android:title="@string/news"
-        />
-    <item
         android:id="@+id/favouriteFragment"
         android:icon="@drawable/favorite"
         android:title="@string/Favourite"
@@ -20,11 +15,6 @@
         android:id="@+id/walletFragment"
         android:icon="@drawable/icons8_wallet"
         android:title="@string/Wallet"
-        />
-    <item
-        android:id="@+id/alertFragment"
-        android:icon="@drawable/ic_baseline_notifications_active_24"
-        android:title="@string/alerts"
         />
 
 

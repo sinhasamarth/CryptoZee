@@ -32,10 +32,6 @@
             app:destination="@id/walletFragment" />
     </fragment>
     <fragment
-        android:id="@+id/alertFragment"
-        android:name="com.samarth.cryptozee.ui.base.fragments.alert.AlertFragment"
-        android:label="AlertFragment" />
-    <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.samarth.cryptozee.ui.base.fragments.favourite.FavouriteFragment"
         android:label="FavouriteFragment" >
@@ -43,10 +39,6 @@
             android:id="@+id/action_favouriteFragment_to_singleCoinDetail"
             app:destination="@id/singleCoinDetail" />
     </fragment>
-    <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.samarth.cryptozee.ui.base.fragments.news.NewsFragment"
-        android:label="NewsFragment" />
     <fragment
         android:id="@+id/walletFragment"
         android:name="com.samarth.cryptozee.ui.base.fragments.wallet.WalletFragment"
