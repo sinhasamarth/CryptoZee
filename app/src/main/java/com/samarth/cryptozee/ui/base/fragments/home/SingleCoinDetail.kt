@@ -62,14 +62,13 @@ class SingleCoinDetail : Fragment() {
             }
         }
 
-        viewModelShared.allFavouriteCoin.observe(viewLifecycleOwner, {
-            it.forEach {data ->
-                if (data.coinId == binding.Symbol.text.toString().lowercase()) {
-                    binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                    binding.favtoggleButton.tag = "ON"
-                }
+        viewModelShared.allFavouriteCoin.value?.forEach {
+            if (it.coinId == coinId) {
+                binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+                binding.favtoggleButton.tag = "ON"
             }
-        })
+        }
+
 
         //Buy Button
         //Getting The Usable Value
