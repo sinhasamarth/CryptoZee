@@ -18,7 +18,6 @@ import com.samarth.cryptozee.data.repository.Repository
 import com.samarth.cryptozee.data.viewModelFactory.ViewModelFactorys
 import com.samarth.cryptozee.data.viewmodel.MainViewModel
 import com.samarth.cryptozee.databinding.ActivityMainBinding
-import com.samarth.cryptozee.service.ForegroundService
 
 
 private lateinit var binding: ActivityMainBinding
@@ -37,37 +36,10 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         createSharedViewModel()
         setUpBottomNavigation()
-        foregroundServiceManager()
-        navigationChecker()
 
     }
 
-    // On Notification Click Navigation
-    private fun navigationChecker() {
-        if (!intent.getStringExtra("Destination").isNullOrBlank()) {
-            navHostFragment.navController.navigate(R.id.action_homeFragment_to_alertFragment)
-        }
-    }
 
-    // Setting Dynamic   Foreground Service
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun foregroundServiceManager() {
-        viewModelShared.allAlertCoin.observe(this, {
-            if (!it.isNullOrEmpty()) {
-                Log.d("MYTAG", "STARTED FOREGROUD")
-                applicationContext.startForegroundService(
-                    Intent(
-                        this,
-                        ForegroundService::class.java
-                    )
-                )
-            } else {
-                Log.d("MYTAG", "STOP FOREGROUD")
-                applicationContext.stopService(Intent(this, ForegroundService::class.java))
-            }
-        })
-
-    }
 
 
     private fun setUpBottomNavigation() {
@@ -75,10 +47,8 @@ class MainActivity : AppCompatActivity() {
         val appConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.newsFragment,
                 R.id.favouriteFragment,
                 R.id.walletFragment,
-                R.id.alertFragment
             )
         )
         setupActionBarWithNavController(navHostFragment.navController, appConfiguration)
@@ -88,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     private fun createSharedViewModel() {
         val gettingDataBaseReference = LocalStorageDatabase.getDatabase(this)
         val repository =
-            Repository(gettingDataBaseReference.favouriteDao(), gettingDataBaseReference.alertDao())
+            Repository(gettingDataBaseReference.favouriteDao())
         viewModelShared =
             ViewModelProvider(this, ViewModelFactorys(repository)).get(MainViewModel::class.java)
     }

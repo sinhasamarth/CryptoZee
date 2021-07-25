@@ -26,8 +26,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <service android:name=".service.ForegroundService"
-            android:foregroundServiceType="dataSync"/>
     </application>
 
 </manifest>

@@ -1,20 +1,14 @@
 package com.samarth.cryptozee.data.viewmodel
 
-import android.content.Intent
 import android.util.Log
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
-import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponseItem
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
-import com.samarth.cryptozee.data.model.localStorage.entities.AlertEntity
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
 import com.samarth.cryptozee.data.repository.Repository
-import com.samarth.cryptozee.service.ForegroundService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -32,7 +26,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val singleCoinResponse: MutableLiveData<SingleCoinDetailResponse> = MutableLiveData<SingleCoinDetailResponse>()
     val singleCoinChartResponse: MutableLiveData<ArrayList<SingleCoinChartResponse>> = MutableLiveData<ArrayList<SingleCoinChartResponse>>()
     val allFavouriteCoin: MutableLiveData<List<FavouriteEntity>> = MutableLiveData<List<FavouriteEntity>>()
-    val allAlertCoin:LiveData<List<AlertEntity>> = repository.allAlertCoin
 
     //Sharing Data Between Fragments
     var coinIDForSharing:String ?=null
@@ -89,14 +82,4 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     //Alert
 
-    fun addToAlert(alertEntity: AlertEntity){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.addToAlert(alertEntity)
-        }
-    }
-    fun delAlert(alertEntity: AlertEntity){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.delAlert(alertEntity)
-        }
-    }
 }

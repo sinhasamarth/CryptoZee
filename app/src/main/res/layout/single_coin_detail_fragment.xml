@@ -155,30 +155,6 @@
                         android:text="@string/all" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/price_alert"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/toggleButton" />
-
-                <ImageView
-                    android:id="@+id/PriceAlertToogle"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:tag="OFF"
-                    android:src="@drawable/ic_baseline_radio_button_unchecked_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toggleButton"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout

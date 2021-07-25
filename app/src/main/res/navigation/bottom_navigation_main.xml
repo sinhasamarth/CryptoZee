@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_singleCoinDetail_to_favouriteFragment"
             app:destination="@id/favouriteFragment" />
-        <action
-            android:id="@+id/action_singleCoinDetail_to_alertFragment"
-            app:destination="@id/alertFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -26,17 +23,6 @@
         android:label="@string/Coin_Market">
         <action
             android:id="@+id/action_homeFragment_to_singleCoinDetail"
-            app:destination="@id/singleCoinDetail" />
-        <action
-            android:id="@+id/action_homeFragment_to_alertFragment"
-            app:destination="@id/alertFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/alertFragment"
-        android:name="com.samarth.cryptozee.ui.base.fragments.alert.AlertFragment"
-        android:label="AlertFragment" >
-        <action
-            android:id="@+id/action_alertFragment_to_singleCoinDetail"
             app:destination="@id/singleCoinDetail" />
     </fragment>
     <fragment
@@ -47,10 +33,6 @@
             android:id="@+id/action_favouriteFragment_to_singleCoinDetail"
             app:destination="@id/singleCoinDetail" />
     </fragment>
-    <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.samarth.cryptozee.ui.base.fragments.news.NewsFragment"
-        android:label="NewsFragment" />
     <fragment
         android:id="@+id/walletFragment"
         android:name="com.samarth.cryptozee.ui.base.fragments.wallet.WalletFragment"
