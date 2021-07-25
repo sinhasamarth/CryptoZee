@@ -1,6 +1,5 @@
 package com.samarth.cryptozee.data.repository
 
-import androidx.lifecycle.LiveData
 import com.samarth.cryptozee.data.api.AllChartApiRequest
 import com.samarth.cryptozee.data.api.RetrofitInstance
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
@@ -8,17 +7,15 @@ import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartRe
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
 import com.samarth.cryptozee.data.model.localStorage.dao.FavouriteDao
 import com.samarth.cryptozee.data.model.localStorage.dao.TransactionDao
-import com.samarth.cryptozee.data.model.localStorage.dao.WalletDetailDao
+import com.samarth.cryptozee.data.model.localStorage.dao.WalletInfoDao
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletDetailsEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_URL_DETAIL_PREFIX
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_URL_DETAIL_SUFFIX
-import com.samarth.cryptozee.viewModelShared
-import kotlinx.coroutines.flow.Flow
 
 class Repository(
     private val favouriteDao: FavouriteDao,
-    private val walletDetailDao: WalletDetailDao,
+    private val walletInfoDao: WalletInfoDao,
     private val transationDao: TransactionDao
 ) {
 
@@ -56,20 +53,20 @@ class Repository(
 
     //GetDetail
 
-    suspend fun getDetail(): WalletDetailsEntity {
-        return walletDetailDao.getWalletDetail()
+    suspend fun getDetail(): WalletInfoEntity {
+        return walletInfoDao.getWalletDetail()
     }
 
     //Insert To Wallet
 
-    suspend fun addDetailToWallet(walletDetailsEntity: WalletDetailsEntity) {
-        walletDetailDao.addWalletDetail(walletDetailsEntity)
+    suspend fun addDetailToWallet(walletInfoEntity: WalletInfoEntity) {
+        walletInfoDao.addWalletDetail(walletInfoEntity)
     }
 
     // Update
 
-    suspend fun updateWallet(walletDetailsEntity: WalletDetailsEntity) {
-        walletDetailDao.updateWallet(walletDetailsEntity)
+    suspend fun updateWallet(walletInfoEntity: WalletInfoEntity) {
+        walletInfoDao.updateWallet(walletInfoEntity)
     }
 
 }

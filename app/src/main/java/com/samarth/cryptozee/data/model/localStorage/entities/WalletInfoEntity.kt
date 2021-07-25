@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Wallet_Details")
-data class WalletDetailsEntity(
+@Entity(tableName = "Wallet_Info")
+data class WalletInfoEntity(
     @PrimaryKey(autoGenerate = true)
     val id:Int,
     @ColumnInfo(name = "owner_name")

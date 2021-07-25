@@ -1,31 +1,23 @@
 package com.samarth.cryptozee.ui.base.fragments.wallet
 
 import android.annotation.SuppressLint
-import android.media.session.PlaybackState
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.EditText
-import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.samarth.cryptozee.R
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletDetailsEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
 import com.samarth.cryptozee.databinding.WalletFragmentBinding
 import com.samarth.cryptozee.ui.dataFormatter.SetWalletData
 import com.samarth.cryptozee.viewModelShared
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -38,11 +30,11 @@ class WalletFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = WalletFragmentBinding.inflate(layoutInflater)
-        viewModelShared.getWalletDetails()
+        viewModelShared.getWalletInfo()
 
-        viewModelShared.walletDetail.observe(viewLifecycleOwner,{
+        viewModelShared.walletInfo.observe(viewLifecycleOwner,{
 
-            if (viewModelShared.walletDetail.value == null)
+            if (viewModelShared.walletInfo.value == null)
                 showWelcomeBox()
             else {
                 binding.WalletIntroFrameLayout.visibility = View.GONE
@@ -88,7 +80,7 @@ class WalletFragment : Fragment() {
             Snackbar.make(binding.root, name.text.toString(), Snackbar.LENGTH_LONG).show()
             binding.WalletIntroFrameLayout.visibility = View.GONE
             viewModelShared.createWallet(
-                WalletDetailsEntity(
+                WalletInfoEntity(
                     0,
                     name.text.toString(),
                     "10000",

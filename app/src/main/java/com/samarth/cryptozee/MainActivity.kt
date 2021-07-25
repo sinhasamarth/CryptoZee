@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val gettingDataBaseReference = LocalStorageDatabase.getDatabase(this)
         val repository = Repository(
             gettingDataBaseReference.favouriteDao(),
-            gettingDataBaseReference.WalletDetailDao(),
+            gettingDataBaseReference.walletInfoDao(),
             gettingDataBaseReference.transactionDao()
         )
         viewModelShared =

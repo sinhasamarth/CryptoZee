@@ -2,17 +2,15 @@ package com.samarth.cryptozee.ui.base.fragments.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletDetailsEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
 import com.samarth.cryptozee.databinding.SingleCoinDetailFragmentBinding
 import com.samarth.cryptozee.ui.dataFormatter.SetSingleCoinData
 import com.samarth.cryptozee.viewModelShared
@@ -72,16 +70,16 @@ class SingleCoinDetail : Fragment() {
 
         //Buy Button
         //Getting The Usable Value
-        var walletDetails: WalletDetailsEntity? = null;
-        viewModelShared.getWalletDetails()
-        viewModelShared.walletDetail.observe(viewLifecycleOwner, {
-            walletDetails = it
+        var walletInfo: WalletInfoEntity? = null;
+        viewModelShared.getWalletInfo()
+        viewModelShared.walletInfo.observe(viewLifecycleOwner, {
+            walletInfo = it
         })
 
         //
 
         binding.buyButton.setOnClickListener {
-
+            Toast.makeText(requireContext(),walletInfo.toString(),Toast.LENGTH_LONG).show()
         }
         return binding.root
     }
