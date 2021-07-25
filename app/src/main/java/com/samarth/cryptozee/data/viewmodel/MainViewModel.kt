@@ -29,10 +29,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         MutableLiveData<List<FavouriteEntity>>()
 
     //Wallet Details
-    val walletDetail :MutableLiveData<WalletDetailsEntity> =MutableLiveData<WalletDetailsEntity>()
+    val walletDetail: MutableLiveData<WalletDetailsEntity> = MutableLiveData<WalletDetailsEntity>()
 
     //Sharing Data Between Fragments
-    var coinIDForSharing:String ?=null
+    var coinIDForSharing: String? = null
 
     fun getAllCoin() {
         viewModelScope.launch {
@@ -76,7 +76,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             allFavouriteCoin.postValue(repository.getAllFavourite())
         }
     }
-    fun removeCoinFromFavourite( entity: FavouriteEntity){
+
+    fun removeCoinFromFavourite(entity: FavouriteEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.delFavourite(entity)
         }
@@ -84,14 +85,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     // Wallet
 
-    fun createWallet(walletDetailsEntity: WalletDetailsEntity){
+    fun createWallet(walletDetailsEntity: WalletDetailsEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addDetailToWallet(walletDetailsEntity)
         }
     }
 
-    fun getWalletDetails(){
-        viewModelScope.launch (Dispatchers.IO){
+    fun getWalletDetails() {
+        viewModelScope.launch(Dispatchers.IO) {
             walletDetail.postValue(repository.getDetail())
         }
 

@@ -62,13 +62,14 @@ class WalletFragment : Fragment() {
         val checkBox = customView.findViewById<CheckBox>(R.id.checkboxTermsAndCondition)
         val name: TextInputEditText = customView.findViewById(R.id.userName)
         val button = customView.findViewById<Button>(R.id.startButton)
-
+        binding.walletDetailsLayout.visibility = View.GONE
         name.doOnTextChanged { _, _, _, count ->
             if (count > 0) {
                 if (checkBox.isChecked) {
                     button.isEnabled = true
                 }
-            } else
+            }
+            else
                 button.isEnabled = false
         }
         checkBox.setOnCheckedChangeListener { _, isChecked ->

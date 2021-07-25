@@ -48,12 +48,7 @@ object SetSingleCoinData {
                 this.circulatingSupply.text =
                     response.marketData.circulatingSupply.toInt().toString()
             }
-            viewModelShared.allFavouriteCoin.value!!.forEach {
-                if (it.coinId == response.id) {
-                    binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                    binding.favtoggleButton.tag = "ON"
-                }
-            }
+
         }
     }
 
