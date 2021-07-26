@@ -65,8 +65,8 @@ class Repository(
 
     // Update
 
-    suspend fun updateWallet(walletInfoEntity: WalletInfoEntity) {
-        walletInfoDao.updateWallet(walletInfoEntity)
+    suspend fun updateWallet(usableMoney:String) {
+        walletInfoDao.updateWallet(usableMoney)
     }
 
 }

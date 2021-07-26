@@ -13,7 +13,7 @@ data class WalletInfoEntity(
     @ColumnInfo(name = "Total_Portfolio_Value")
     val totalPortfolio:String,
     @ColumnInfo(name = "Usable_Money")
-    val usableMoney:String,
+    var usableMoney:String,
     @ColumnInfo(name = "wallet_Created_Day")
     val creationDate:String
 )

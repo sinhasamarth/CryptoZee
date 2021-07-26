@@ -368,7 +368,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="#4CAF50"
                 android:text="BUY"
-                android:textColor="@color/TextWhite"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent" />
@@ -380,7 +380,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="#E91E1E"
                 android:text="@string/sell"
-                android:textColor="@color/TextWhite"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent" />

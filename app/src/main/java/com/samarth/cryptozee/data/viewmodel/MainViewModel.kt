@@ -94,7 +94,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             walletInfo.postValue(repository.getDetail())
         }
+    }
 
+    fun upDateWallet(usableMoney: String){
+        viewModelScope.launch (Dispatchers.IO){
+            repository.updateWallet(usableMoney)
+        }
     }
 
 }

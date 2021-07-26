@@ -14,6 +14,6 @@ interface WalletInfoDao {
     @Query("SELECT *  FROM wallet_info WHERE id = 1")
     suspend fun getWalletDetail(): WalletInfoEntity
 
-    @Update
-    suspend fun updateWallet(walletInfoEntity: WalletInfoEntity)
+    @Query("UPDATE wallet_info SET Usable_Money = :usableMoney WHERE id = 1")
+    suspend fun updateWallet(usableMoney:String)
 }

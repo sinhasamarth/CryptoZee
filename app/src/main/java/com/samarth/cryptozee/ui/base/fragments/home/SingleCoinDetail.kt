@@ -1,21 +1,34 @@
 package com.samarth.cryptozee.ui.base.fragments.home
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.TransactionEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.WalletCoinEntity
 import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
 import com.samarth.cryptozee.databinding.SingleCoinDetailFragmentBinding
+import com.samarth.cryptozee.ui.dataFormatter.DataFormat
 import com.samarth.cryptozee.ui.dataFormatter.SetSingleCoinData
 import com.samarth.cryptozee.viewModelShared
+import java.text.SimpleDateFormat
+import java.util.*
 
-private lateinit var binding: SingleCoinDetailFragmentBinding
+private lateinit var binding : SingleCoinDetailFragmentBinding
 
 class SingleCoinDetail : Fragment() {
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -70,7 +83,7 @@ class SingleCoinDetail : Fragment() {
 
         //Buy Button
         //Getting The Usable Value
-        var walletInfo: WalletInfoEntity? = null;
+        var walletInfo: WalletInfoEntity? = null
         viewModelShared.getWalletInfo()
         viewModelShared.walletInfo.observe(viewLifecycleOwner, {
             walletInfo = it
@@ -79,8 +92,116 @@ class SingleCoinDetail : Fragment() {
         //
 
         binding.buyButton.setOnClickListener {
-            Toast.makeText(requireContext(),walletInfo.toString(),Toast.LENGTH_LONG).show()
+
+            //Getting View
+            val view = LayoutInflater.from(requireContext())
+                .inflate(R.layout.buy_box_layout, null, false)
+
+            //Getting View elements
+            val priceText = view.findViewById<TextInputEditText>(R.id.PriceText)
+            val quantityText = view.findViewById<TextInputEditText>(R.id.QuantityText)
+            val balanceText = view.findViewById<TextView>(R.id.currentBalance)
+            val cancelButton = view.findViewById<Button>(R.id.cancel_button)
+            val buyButton = view.findViewById<Button>(R.id.buyCoin)
+
+            //Setting CustomView On Material Box
+            val materialBox = MaterialAlertDialogBuilder(requireContext())
+
+            //Setting Background Color Transparent and showing it
+            val box =
+                materialBox.setView(view).setBackground(ColorDrawable(Color.TRANSPARENT)).show()
+            balanceText.setText("Balance - " + DataFormat.formatPrice(walletInfo!!.usableMoney))
+
+
+            //Quantity Text Changer Listener
+            quantityText.doOnTextChanged { text, _, _, _ ->
+                if (!text.isNullOrBlank() && quantityText.hasFocus()) {
+                    val value = text.toString().toDouble()
+                        .times(coinDetailResponse!!.marketData.current_price.usd)
+                    view.findViewById<TextInputEditText>(R.id.PriceText)
+                        .setText(value.toString())
+                } else if (text.isNullOrBlank()) {
+                    view.findViewById<TextInputEditText>(R.id.PriceText)
+                        .setText("0")
+                }
+            }
+
+            // Live ext Changer Listener
+
+            priceText.doOnTextChanged { text, _, _, _ ->
+                if (!text.isNullOrBlank() && priceText.hasFocus()) {
+
+                    val value = text.toString().toDouble()
+                        .div(coinDetailResponse!!.marketData.current_price.usd)
+
+                    quantityText.setText(value.toString())
+
+                } else if (text.isNullOrBlank()) {
+                    view.findViewById<TextInputEditText>(R.id.QuantityText)
+                        .setText(getString(R.string.zeroValue))
+                }
+            }
+
+
+            //Cancel Button
+
+            cancelButton.setOnClickListener {
+                box.dismiss()
+            }
+
+
+            //Buy Button function
+
+            buyButton.setOnClickListener {
+                if (walletInfo!!.usableMoney.toDouble() >= priceText.text.toString()
+                        .toDouble() && !quantityText.text.isNullOrBlank() && !priceText.text.isNullOrBlank()
+                ) {
+                    Toast.makeText(requireContext(), "VALID", Toast.LENGTH_LONG).show()
+                    coinDetailResponse?.let {
+
+                        val transaction = TransactionEntity(
+                            0,
+                            it.name,
+                            quantityText.text.toString().toDouble(),
+                            SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date()),
+                            it.id,
+                            it.symbol,
+                            false,
+                            priceText.text.toString().toDouble()
+                        )
+
+                        val addToWallet = WalletCoinEntity(
+                            transaction.id,
+                            transaction.coinName,
+                            transaction.coinId,
+                            it.marketData.current_price.usd.toString(),
+                            quantityText.toString(),
+                            transaction.dateOfTransaction
+                        )
+
+                        val remainingPrice =
+                            walletInfo!!.usableMoney.toDouble() - quantityText.text.toString()
+                                .toDouble()
+                        val updateWallet = WalletInfoEntity(
+                            0,
+                            walletInfo!!.name,
+                            walletInfo!!.totalPortfolio,
+                            remainingPrice.toString(),
+                            walletInfo!!.creationDate
+                        )
+
+                        viewModelShared.upDateWallet(remainingPrice.toString())
+
+                    }
+
+                }
+                Toast.makeText(requireContext(), "INVALID", Toast.LENGTH_LONG).show()
+            }
+
         }
+
+
+
         return binding.root
     }
 

@@ -16,8 +16,8 @@
 
     </style>
     <color name="Bg">#F6F6F6</color>
-    <color name="TextWhite">#FFFFFF</color>
-    <color name="MyCustomLightBg" tools:ignore="MissingDefaultResource"> #FFFF </color>
+    <color name="TextWhite">#000000</color>
+    <color name="MyCustomLightBg" tools:ignore="MissingDefaultResource">#F2F2F2</color>
 
     <style name="NoBorderTheme" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textStyle">bold</item>
@@ -29,7 +29,6 @@
         <item name="android:minWidth">48dp</item>
         <item name="android:minHeight">48dp</item>
         <item name="strokeWidth">0dp</item>
-
-
     </style>
+
 </resources>
