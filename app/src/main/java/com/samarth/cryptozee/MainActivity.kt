@@ -8,19 +8,13 @@ import com.samarth.cryptozee.databinding.ActivityMainBinding
 import android.graphics.Color
 
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.ActionBar
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.samarth.cryptozee.data.model.localStorage.database.LocalStorageDatabase
+import com.samarth.cryptozee.data.offlineDatabase.database.LocalStorageDatabase
 import com.samarth.cryptozee.data.repository.Repository
 import com.samarth.cryptozee.data.viewModelFactory.ViewModelFactorys
 import com.samarth.cryptozee.data.viewmodel.MainViewModel
-import kotlinx.coroutines.GlobalScope
 
 
 private lateinit var binding: ActivityMainBinding

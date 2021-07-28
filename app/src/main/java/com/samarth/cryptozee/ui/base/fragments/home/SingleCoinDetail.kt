@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +17,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
-import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.TransactionEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletCoinEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
+import com.samarth.cryptozee.data.model.localStorage.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.TransactionEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletCoinEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletInfoEntity
 import com.samarth.cryptozee.databinding.SingleCoinDetailFragmentBinding
 import com.samarth.cryptozee.ui.dataFormatter.DataFormat
 import com.samarth.cryptozee.ui.dataFormatter.SetSingleCoinData
@@ -180,6 +179,7 @@ class SingleCoinDetail : Fragment() {
                                 transaction.id,
                                 transaction.coinName,
                                 transaction.coinId,
+                                transaction.coinSymbol,
                                 it.marketData.current_price.usd,
                                 quantityText.text.toString().toDouble(),
                                 transaction.dateOfTransaction

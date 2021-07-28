@@ -1,8 +1,7 @@
-package com.samarth.cryptozee.data.model.localStorage.entities
+package com.samarth.cryptozee.data.model.localStorage
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Favourite_Table")

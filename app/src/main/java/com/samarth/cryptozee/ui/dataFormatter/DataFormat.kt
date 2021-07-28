@@ -95,11 +95,11 @@ object DataFormat {
     fun formatChartResponse(rawData: ArrayList<SingleCoinChartResponse>): ArrayList<ArrayList<Double>> {
         val response = ArrayList<ArrayList<Double>>(0)
         try {
-            response.add(getResponseofCharttoArrayList(rawData[0]))
-            response.add(getResponseofCharttoArrayList(rawData[1]))
-            response.add(getResponseofCharttoArrayList(rawData[2]))
-            response.add(getResponseofCharttoArrayList(rawData[3]))
-            response.add(getResponseofCharttoArrayList(rawData[4]))
+            response.add(getResponsiveCharityArrayList(rawData[0]))
+            response.add(getResponsiveCharityArrayList(rawData[1]))
+            response.add(getResponsiveCharityArrayList(rawData[2]))
+            response.add(getResponsiveCharityArrayList(rawData[3]))
+            response.add(getResponsiveCharityArrayList(rawData[4]))
 
         } catch (e: Exception) {
 
@@ -108,7 +108,7 @@ object DataFormat {
     }
 
     // Changing Api Response To ArrayList
-    private fun getResponseofCharttoArrayList(rawData: SingleCoinChartResponse): ArrayList<Double> {
+    private fun getResponsiveCharityArrayList(rawData: SingleCoinChartResponse): ArrayList<Double> {
         val response = ArrayList<Double>(0)
         rawData.prices.forEach {
             if (it[1] >= 0.01) {
@@ -127,6 +127,12 @@ object DataFormat {
     fun changeTextToNA(textView: TextView) {
         textView.setTextColor(Color.parseColor("#A2D970"))
         textView.text = "N/A"
+    }
+
+    fun formatQuantity(rawQuantity:Double):String{
+        return DecimalFormat("#####.###")
+            .format(rawQuantity)
+            .toDouble().toString()
     }
 
 }

@@ -1,4 +1,4 @@
-package com.samarth.cryptozee.data.model.localStorage.entities
+package com.samarth.cryptozee.data.model.localStorage
 
 
 import androidx.room.ColumnInfo

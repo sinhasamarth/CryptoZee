@@ -1,17 +1,17 @@
-package com.samarth.cryptozee.data.model.localStorage.database
+package com.samarth.cryptozee.data.offlineDatabase.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.samarth.cryptozee.data.model.localStorage.dao.FavouriteDao
-import com.samarth.cryptozee.data.model.localStorage.dao.TransactionDao
-import com.samarth.cryptozee.data.model.localStorage.dao.WalletCoinDao
-import com.samarth.cryptozee.data.model.localStorage.dao.WalletInfoDao
-import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.TransactionEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletCoinEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
+import com.samarth.cryptozee.data.offlineDatabase.database.dao.FavouriteDao
+import com.samarth.cryptozee.data.offlineDatabase.database.dao.TransactionDao
+import com.samarth.cryptozee.data.offlineDatabase.database.dao.WalletCoinDao
+import com.samarth.cryptozee.data.offlineDatabase.database.dao.WalletInfoDao
+import com.samarth.cryptozee.data.model.localStorage.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.TransactionEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletCoinEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletInfoEntity
 
 @Database(entities = [FavouriteEntity::class, TransactionEntity::class , WalletInfoEntity::class, WalletCoinEntity::class ], version = 4, exportSchema = false)
 abstract class LocalStorageDatabase : RoomDatabase() {

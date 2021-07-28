@@ -1,7 +1,7 @@
-package com.samarth.cryptozee.data.model.localStorage.dao
+package com.samarth.cryptozee.data.offlineDatabase.database.dao
 
 import androidx.room.*
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletInfoEntity
 
 @Dao
 interface WalletInfoDao {

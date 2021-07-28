@@ -1,7 +1,7 @@
-package com.samarth.cryptozee.data.model.localStorage.dao
+package com.samarth.cryptozee.data.offlineDatabase.database.dao
 
 import androidx.room.*
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletCoinEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletCoinEntity
 
 @Dao
 interface WalletCoinDao {
@@ -13,7 +13,7 @@ interface WalletCoinDao {
     suspend fun removeCoin(walletCoinEntity: WalletCoinEntity)
 
     @Query("SELECT * FROM wallet_Coins WHERE coin_Id= :coinId")
-    suspend fun getCoinDetail(coinId:String):WalletCoinEntity
+    suspend fun getCoinDetail(coinId:String): WalletCoinEntity
 
     @Query("SELECT * FROM wallet_Coins ORDER BY quantity DESC")
     suspend fun walletCoin():List<WalletCoinEntity>

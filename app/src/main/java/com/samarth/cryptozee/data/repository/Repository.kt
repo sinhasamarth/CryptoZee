@@ -5,14 +5,14 @@ import com.samarth.cryptozee.data.api.RetrofitInstance
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
-import com.samarth.cryptozee.data.model.localStorage.dao.FavouriteDao
-import com.samarth.cryptozee.data.model.localStorage.dao.TransactionDao
-import com.samarth.cryptozee.data.model.localStorage.dao.WalletCoinDao
-import com.samarth.cryptozee.data.model.localStorage.dao.WalletInfoDao
-import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.TransactionEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletCoinEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
+import com.samarth.cryptozee.data.offlineDatabase.database.dao.FavouriteDao
+import com.samarth.cryptozee.data.offlineDatabase.database.dao.TransactionDao
+import com.samarth.cryptozee.data.offlineDatabase.database.dao.WalletCoinDao
+import com.samarth.cryptozee.data.offlineDatabase.database.dao.WalletInfoDao
+import com.samarth.cryptozee.data.model.localStorage.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.TransactionEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletCoinEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletInfoEntity
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_URL_DETAIL_PREFIX
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_URL_DETAIL_SUFFIX
 
@@ -88,8 +88,14 @@ class Repository(
 
     // Wallet
 
+    //Add Coin To Wallet
     suspend fun addCoinToWallet(walletCoinEntity: WalletCoinEntity){
         walletCoinDao.addCoinToWallet(walletCoinEntity)
+    }
+
+    //Getting All the Coins
+    suspend fun getAllWalletCoins():List<WalletCoinEntity>{
+        return walletCoinDao.walletCoin()
     }
 
 }

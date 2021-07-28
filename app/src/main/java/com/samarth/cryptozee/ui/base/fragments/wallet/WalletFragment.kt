@@ -9,12 +9,16 @@ import android.widget.Button
 import android.widget.CheckBox
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.samarth.cryptozee.R
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletInfoEntity
 import com.samarth.cryptozee.databinding.WalletFragmentBinding
+import com.samarth.cryptozee.ui.adapters.WalletCoinRecyclerViewAdapter
 import com.samarth.cryptozee.ui.dataFormatter.SetWalletData
+import com.samarth.cryptozee.ui.listeners.SingleCoinItemClickListeners
 import com.samarth.cryptozee.viewModelShared
 import java.text.SimpleDateFormat
 
@@ -23,27 +27,54 @@ import java.util.*
 
 private lateinit var binding: WalletFragmentBinding
 
-class WalletFragment : Fragment() {
+class WalletFragment : Fragment(), SingleCoinItemClickListeners {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        // View Binding
         binding = WalletFragmentBinding.inflate(layoutInflater)
+
+        // Getting Wallet Details
         viewModelShared.getWalletInfo()
 
-        viewModelShared.walletInfo.observe(viewLifecycleOwner,{
+        // Checking the wallet is Created Or Not
+        viewModelShared.walletInfo.observe(viewLifecycleOwner, {
 
             if (viewModelShared.walletInfo.value == null)
+            // Wallet Create Box
                 showWelcomeBox()
-            else {
-                binding.WalletIntroFrameLayout.visibility = View.GONE
-                binding.walletDetailsLayout.visibility = View.VISIBLE
-                SetWalletData.setWalletValue(binding , it)
-            }
+            else
+            // Show Wallet Details
+                showWalletDetails(it)
         })
 
         return binding.root
+    }
+
+    private fun showWalletDetails(walletInfoEntity: WalletInfoEntity) {
+
+        // Setting Views
+        binding.WalletIntroFrameLayout.visibility = View.GONE
+        binding.walletDetailsLayout.visibility = View.VISIBLE
+
+        // Setting WalletData
+        SetWalletData.setWalletDeatils(binding, walletInfoEntity)
+
+        // Show Coins in RecyclerView
+        viewModelShared.getAllWalletCoin()
+
+        // Setting Layout Manager
+        binding.coinRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Setting Adapter
+        viewModelShared.allWalletCoin.observe(viewLifecycleOwner, {
+            it?.let {
+                binding.coinRecyclerView.adapter = WalletCoinRecyclerViewAdapter(it, it.size, this)
+            }
+        })
     }
 
     @SuppressLint("InflateParams")
@@ -60,8 +91,7 @@ class WalletFragment : Fragment() {
                 if (checkBox.isChecked) {
                     button.isEnabled = true
                 }
-            }
-            else
+            } else
                 button.isEnabled = false
         }
         checkBox.setOnCheckedChangeListener { _, isChecked ->
@@ -92,5 +122,12 @@ class WalletFragment : Fragment() {
         }
     }
 
+    override fun onItemClick(position: Int) {
+        // Setting argument
+        // Replacing Fragment
+        findNavController().navigate(R.id.action_walletFragment_to_singleCoinDetail)
 
+    }
 }
+
+

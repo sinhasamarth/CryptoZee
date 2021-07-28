@@ -1,4 +1,4 @@
-package com.samarth.cryptozee.data.model.localStorage.entities
+package com.samarth.cryptozee.data.model.localStorage
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,6 +12,8 @@ data class WalletCoinEntity (
     val coinName:String ,
     @ColumnInfo(name = "coin_Id")
     val coinId:String,
+    @ColumnInfo(name = "coin_symbol")
+    val coinSymbol:String,
     @ColumnInfo(name = "buying_Price")
     val buyingPrice:Double,
     @ColumnInfo(name = "quantity")

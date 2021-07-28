@@ -5,10 +5,10 @@ import androidx.lifecycle.*
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
-import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.TransactionEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletCoinEntity
-import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
+import com.samarth.cryptozee.data.model.localStorage.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.TransactionEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletCoinEntity
+import com.samarth.cryptozee.data.model.localStorage.WalletInfoEntity
 import com.samarth.cryptozee.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +19,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     init {
         getAllFavouriteCoin()
     }
+
+
     //LiveData
 
     val allCoinResponse: MutableLiveData<MarketCoinResponse> = MutableLiveData<MarketCoinResponse>()
@@ -31,7 +33,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     //Wallet Details
     val walletInfo: MutableLiveData<WalletInfoEntity> = MutableLiveData<WalletInfoEntity>()
-
+    val allWalletCoin: MutableLiveData<List<WalletCoinEntity>> =
+        MutableLiveData<List<WalletCoinEntity>>()
     //Sharing Data Between Fragments
     var coinIDForSharing: String? = null
 
@@ -116,6 +119,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun addCoinToWallet(coinEntity: WalletCoinEntity){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addCoinToWallet(coinEntity)
+        }
+    }
+
+    //Getting Wallet Details
+    fun getAllWalletCoin() {
+        viewModelScope.launch(Dispatchers.IO) {
+            allWalletCoin.postValue(repository.getAllWalletCoins())
         }
     }
 

@@ -8,12 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.samarth.cryptozee.R
-import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.FavouriteEntity
 import com.samarth.cryptozee.ui.base.fragments.favourite.FavouriteFragment
 import com.samarth.cryptozee.ui.dataFormatter.DataFormat
-import com.samarth.cryptozee.ui.listeners.SingleCoinItemClickListeners
 
-class FavouriteHomeAdapter(private val listFavouriteEntity: List<FavouriteEntity>,   val itemClickListners: FavouriteFragment) :
+class FavouriteHomeAdapter(private val listFavouriteEntity: List<FavouriteEntity>, val itemClickListners: FavouriteFragment) :
     RecyclerView.Adapter<FavouriteHomeAdapter.FavouriteViewHolder>() {
 
     inner class FavouriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
