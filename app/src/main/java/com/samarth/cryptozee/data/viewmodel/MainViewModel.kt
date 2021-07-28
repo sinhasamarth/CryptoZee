@@ -6,6 +6,8 @@ import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinRes
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.TransactionEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.WalletCoinEntity
 import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
 import com.samarth.cryptozee.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
@@ -99,6 +101,21 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun upDateWallet(usableMoney: String){
         viewModelScope.launch (Dispatchers.IO){
             repository.updateWallet(usableMoney)
+        }
+    }
+
+    //Add To Transaction
+
+    fun addToTransaction(transactionEntity: TransactionEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addTransaction(transactionEntity)
+        }
+    }
+
+    //Add Coin to Wallet
+    fun addCoinToWallet(coinEntity: WalletCoinEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addCoinToWallet(coinEntity)
         }
     }
 

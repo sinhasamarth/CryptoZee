@@ -50,7 +50,8 @@ class MainActivity : AppCompatActivity() {
         val repository = Repository(
             gettingDataBaseReference.favouriteDao(),
             gettingDataBaseReference.walletInfoDao(),
-            gettingDataBaseReference.transactionDao()
+            gettingDataBaseReference.transactionDao(),
+            gettingDataBaseReference.walletCoinDao()
         )
         viewModelShared =
             ViewModelProvider(this, ViewModelFactorys(repository)).get(MainViewModel::class.java)

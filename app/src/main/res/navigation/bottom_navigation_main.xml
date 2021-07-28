@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_singleCoinDetail_to_walletFragment"
             app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_singleCoinDetail_to_walletFragment2"
+            app:destination="@id/walletFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"

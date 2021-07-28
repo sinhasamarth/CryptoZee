@@ -7,8 +7,11 @@ import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartRe
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
 import com.samarth.cryptozee.data.model.localStorage.dao.FavouriteDao
 import com.samarth.cryptozee.data.model.localStorage.dao.TransactionDao
+import com.samarth.cryptozee.data.model.localStorage.dao.WalletCoinDao
 import com.samarth.cryptozee.data.model.localStorage.dao.WalletInfoDao
 import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.TransactionEntity
+import com.samarth.cryptozee.data.model.localStorage.entities.WalletCoinEntity
 import com.samarth.cryptozee.data.model.localStorage.entities.WalletInfoEntity
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_URL_DETAIL_PREFIX
 import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_URL_DETAIL_SUFFIX
@@ -16,7 +19,8 @@ import com.samarth.cryptozee.utils.CONSTANTS.Companion.SINGLE_COIN_URL_DETAIL_SU
 class Repository(
     private val favouriteDao: FavouriteDao,
     private val walletInfoDao: WalletInfoDao,
-    private val transationDao: TransactionDao
+    private val transactionDao: TransactionDao,
+    private val walletCoinDao: WalletCoinDao
 ) {
 
     suspend fun getAllCoin(): MarketCoinResponse {
@@ -67,6 +71,25 @@ class Repository(
 
     suspend fun updateWallet(usableMoney:String) {
         walletInfoDao.updateWallet(usableMoney)
+    }
+
+    //Transaction
+
+    //Add to Transaction
+    suspend fun addTransaction(transactionEntity: TransactionEntity){
+        transactionDao.addToTransaction(transactionEntity)
+    }
+
+    // Get All transaction
+
+    suspend fun getAllTransaction():List<TransactionEntity>{
+        return transactionDao.getAllTransaction()
+    }
+
+    // Wallet
+
+    suspend fun addCoinToWallet(walletCoinEntity: WalletCoinEntity){
+        walletCoinDao.addCoinToWallet(walletCoinEntity)
     }
 
 }

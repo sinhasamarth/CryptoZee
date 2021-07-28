@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.samarth.cryptozee.R
@@ -28,7 +29,7 @@ import com.samarth.cryptozee.viewModelShared
 import java.text.SimpleDateFormat
 import java.util.*
 
-private lateinit var binding : SingleCoinDetailFragmentBinding
+private lateinit var binding: SingleCoinDetailFragmentBinding
 
 class SingleCoinDetail : Fragment() {
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -82,9 +83,11 @@ class SingleCoinDetail : Fragment() {
 
 
         //Buy Button
-        //Getting The Usable Value
+        //Getting The Live Usable Value
         var walletInfo: WalletInfoEntity? = null
+
         viewModelShared.getWalletInfo()
+
         viewModelShared.walletInfo.observe(viewLifecycleOwner, {
             walletInfo = it
         })
@@ -93,116 +96,146 @@ class SingleCoinDetail : Fragment() {
 
         binding.buyButton.setOnClickListener {
 
-            //Getting View
-            val view = LayoutInflater.from(requireContext())
-                .inflate(R.layout.buy_box_layout, null, false)
+            if (checkWalletCreated(walletInfo)) {
+                //Getting View
+                val view = LayoutInflater.from(requireContext())
+                    .inflate(R.layout.buy_box_layout, null, false)
 
-            //Getting View elements
-            val priceText = view.findViewById<TextInputEditText>(R.id.PriceText)
-            val quantityText = view.findViewById<TextInputEditText>(R.id.QuantityText)
-            val balanceText = view.findViewById<TextView>(R.id.currentBalance)
-            val cancelButton = view.findViewById<Button>(R.id.cancel_button)
-            val buyButton = view.findViewById<Button>(R.id.buyCoin)
+                //Getting View elements
+                val priceText = view.findViewById<TextInputEditText>(R.id.PriceText)
+                val quantityText = view.findViewById<TextInputEditText>(R.id.QuantityText)
+                val balanceText = view.findViewById<TextView>(R.id.currentBalance)
+                val cancelButton = view.findViewById<Button>(R.id.cancel_button)
+                val buyButton = view.findViewById<Button>(R.id.buyCoin)
 
-            //Setting CustomView On Material Box
-            val materialBox = MaterialAlertDialogBuilder(requireContext())
+                //Setting CustomView On Material Box
+                val materialBox = MaterialAlertDialogBuilder(requireContext())
 
-            //Setting Background Color Transparent and showing it
-            val box =
-                materialBox.setView(view).setBackground(ColorDrawable(Color.TRANSPARENT)).show()
-            balanceText.setText("Balance - " + DataFormat.formatPrice(walletInfo!!.usableMoney))
-
-
-            //Quantity Text Changer Listener
-            quantityText.doOnTextChanged { text, _, _, _ ->
-                if (!text.isNullOrBlank() && quantityText.hasFocus()) {
-                    val value = text.toString().toDouble()
-                        .times(coinDetailResponse!!.marketData.current_price.usd)
-                    view.findViewById<TextInputEditText>(R.id.PriceText)
-                        .setText(value.toString())
-                } else if (text.isNullOrBlank()) {
-                    view.findViewById<TextInputEditText>(R.id.PriceText)
-                        .setText("0")
-                }
-            }
-
-            // Live ext Changer Listener
-
-            priceText.doOnTextChanged { text, _, _, _ ->
-                if (!text.isNullOrBlank() && priceText.hasFocus()) {
-
-                    val value = text.toString().toDouble()
-                        .div(coinDetailResponse!!.marketData.current_price.usd)
-
-                    quantityText.setText(value.toString())
-
-                } else if (text.isNullOrBlank()) {
-                    view.findViewById<TextInputEditText>(R.id.QuantityText)
-                        .setText(getString(R.string.zeroValue))
-                }
-            }
+                //Setting Background Color Transparent and showing it
+                val box =
+                    materialBox.setView(view).setBackground(ColorDrawable(Color.TRANSPARENT)).show()
+                balanceText.setText("Balance - " + DataFormat.formatPrice(walletInfo!!.usableMoney))
 
 
-            //Cancel Button
-
-            cancelButton.setOnClickListener {
-                box.dismiss()
-            }
-
-
-            //Buy Button function
-
-            buyButton.setOnClickListener {
-                if (walletInfo!!.usableMoney.toDouble() >= priceText.text.toString()
-                        .toDouble() && !quantityText.text.isNullOrBlank() && !priceText.text.isNullOrBlank()
-                ) {
-                    Toast.makeText(requireContext(), "VALID", Toast.LENGTH_LONG).show()
-                    coinDetailResponse?.let {
-
-                        val transaction = TransactionEntity(
-                            0,
-                            it.name,
-                            quantityText.text.toString().toDouble(),
-                            SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date()),
-                            it.id,
-                            it.symbol,
-                            false,
-                            priceText.text.toString().toDouble()
-                        )
-
-                        val addToWallet = WalletCoinEntity(
-                            transaction.id,
-                            transaction.coinName,
-                            transaction.coinId,
-                            it.marketData.current_price.usd.toString(),
-                            quantityText.toString(),
-                            transaction.dateOfTransaction
-                        )
-
-                        val remainingPrice =
-                            walletInfo!!.usableMoney.toDouble() - quantityText.text.toString()
-                                .toDouble()
-                        val updateWallet = WalletInfoEntity(
-                            0,
-                            walletInfo!!.name,
-                            walletInfo!!.totalPortfolio,
-                            remainingPrice.toString(),
-                            walletInfo!!.creationDate
-                        )
-
-                        viewModelShared.upDateWallet(remainingPrice.toString())
-
+                //Quantity Text Changer Listener
+                quantityText.doOnTextChanged { text, _, _, _ ->
+                    if (!text.isNullOrBlank() && quantityText.hasFocus()) {
+                        val value = text.toString().toDouble()
+                            .times(coinDetailResponse!!.marketData.current_price.usd)
+                        view.findViewById<TextInputEditText>(R.id.PriceText)
+                            .setText(value.toString())
+                    } else if (text.isNullOrBlank()) {
+                        view.findViewById<TextInputEditText>(R.id.PriceText)
+                            .setText("0")
                     }
-
                 }
-                Toast.makeText(requireContext(), "INVALID", Toast.LENGTH_LONG).show()
-            }
 
+                // Live text Changer Listener
+
+                priceText.doOnTextChanged { text, _, _, _ ->
+                    if (!text.isNullOrBlank() && priceText.hasFocus()) {
+
+                        val value = text.toString().toDouble()
+                            .div(coinDetailResponse!!.marketData.current_price.usd)
+
+                        quantityText.setText(value.toString())
+
+                    } else if (text.isNullOrBlank()) {
+                        view.findViewById<TextInputEditText>(R.id.QuantityText)
+                            .setText(getString(R.string.zeroValue))
+                    }
+                }
+
+
+                //Cancel Button
+
+                cancelButton.setOnClickListener {
+                    box.dismiss()
+                }
+
+
+                //Buy Button function
+
+                buyButton.setOnClickListener {
+
+                    //Checking wallet is Created Or Not
+
+                    if (walletInfo!!.usableMoney.toDouble() >= priceText.text.toString()
+                            .toDouble() && !quantityText.text.isNullOrBlank() && !priceText.text.isNullOrBlank()
+                    ) {
+                        coinDetailResponse?.let {
+
+                            val transaction = TransactionEntity(
+                                0,
+                                it.name,
+                                quantityText.text.toString().toDouble(),
+                                SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date()),
+                                it.id,
+                                it.symbol,
+                                true,
+                                priceText.text.toString().toDouble()
+                            )
+
+                            val addToWallet = WalletCoinEntity(
+                                transaction.id,
+                                transaction.coinName,
+                                transaction.coinId,
+                                it.marketData.current_price.usd,
+                                quantityText.text.toString().toDouble(),
+                                transaction.dateOfTransaction
+                            )
+
+                            val remainingPrice =
+                                walletInfo!!.usableMoney.toDouble() - priceText.text.toString()
+                                    .toDouble()
+
+                            // Updating Wallet
+
+                            viewModelShared.upDateWallet(remainingPrice.toString())
+
+                            //Adding Coin To Wallet
+
+                            viewModelShared.addCoinToWallet(addToWallet)
+
+                            //Adding Transaction
+                            viewModelShared.addToTransaction(transaction)
+
+                            //Update wallet
+                            viewModelShared.getWalletInfo()
+                            box.dismiss()
+
+                        }
+                    }
+                    Toast.makeText(requireContext(), "INVALID", Toast.LENGTH_LONG).show()
+                }
+            }
         }
 
-
-
+/*            TODO:  Check wallet is created or not if not move to wallet fragement
+//         TODO: PENDINNG FETAURES -
+            2 ) Live Update of Wallet
+            4 ) Check the live balance using Live Data
+            5 ) Fix Bug of RecylerView on Home
+            6 ) Wallet Pie Chart and More Details
+            7 ) Transaction Fragement
+            8) Wallet Fragement in Detail
+            9 ) Live Upate of Price if possible
+            10 ) Loading bar
+//
+*/
         return binding.root
+    }
+
+    private fun checkWalletCreated(walletInfo: WalletInfoEntity?): Boolean {
+        if (walletInfo == null) {
+
+            // Shifting Screen to Wallet
+            Toast.makeText(requireContext(), "Create Wallet First", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_singleCoinDetail_to_walletFragment)
+            return false
+        }
+        return true
+
     }
 
 

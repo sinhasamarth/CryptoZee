@@ -13,9 +13,9 @@ data class WalletCoinEntity (
     @ColumnInfo(name = "coin_Id")
     val coinId:String,
     @ColumnInfo(name = "buying_Price")
-    val buyingPrice:String,
+    val buyingPrice:Double,
     @ColumnInfo(name = "quantity")
-    val quantity:String,
+    val quantity:Double,
     @ColumnInfo(name="date")
     val date:String
 )
