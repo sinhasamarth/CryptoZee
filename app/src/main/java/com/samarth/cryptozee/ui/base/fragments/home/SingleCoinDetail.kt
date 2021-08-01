@@ -39,46 +39,45 @@ class SingleCoinDetail : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        // View Binding
         binding = SingleCoinDetailFragmentBinding.inflate(layoutInflater)
+
+        // Getting Coin ID
         val coinId = viewModelShared.coinIDForSharing!!
+
+        // Getting Wallet Coin Details
         viewModelShared.getSingleCoin(coinId)
+
+        // API Response Variable
         var coinDetailResponse: SingleCoinDetailResponse? = null
+
+        // API Calling
         viewModelShared.getSingleCoinDetail(coinId)
+
+        // Getting Live Data
         viewModelShared.singleCoinResponse.observe(viewLifecycleOwner, { response ->
 
+            // Setting Value of Response To All the Text
             SetSingleCoinData.setAllTextDataToView(
                 response,
                 binding,
             )
+            // Caching Response
             coinDetailResponse = response
         })
+
+        // API Call for the Chart
         viewModelShared.getCoinChart(coinId)
+
+        // Getting Live Data Of Chart
         viewModelShared.singleCoinChartResponse.observe(viewLifecycleOwner, { response ->
+            // Setting chart To View
             SetSingleCoinData.setAllChartsToView(response, binding, coinDetailResponse)
         })
 
 
-
-        binding.favtoggleButton.setOnClickListener {
-            val element = FavouriteEntity(
-                coinDetailResponse!!.id,
-                coinDetailResponse!!.name,
-                coinDetailResponse!!.marketData.current_price.usd.toString(),
-                coinDetailResponse!!.imageLink.url,
-                coinDetailResponse!!.marketData.priceChangePercentage24h.toString()
-            )
-
-            if (binding.favtoggleButton.tag != "ON") {
-                binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                viewModelShared.addToFavourites(element)
-                binding.favtoggleButton.tag = "ON"
-            } else {
-                binding.favtoggleButton.tag = "OFF"
-                viewModelShared.removeCoinFromFavourite(element)
-                binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-            }
-        }
-
+        // Checking Already Favourite
         viewModelShared.allFavouriteCoin.value?.forEach {
             if (it.coinId == coinId) {
                 binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
@@ -86,44 +85,86 @@ class SingleCoinDetail : Fragment() {
             }
         }
 
+        // Handling the Favourite Button
+        binding.favtoggleButton.setOnClickListener {
+
+            // Favourite Listener
+            favouriteListener(coinDetailResponse!!)
+
+        }
+
 
         //Buy Button
-        //Getting The Live Usable Value
+        //Getting The Live walletInfo
         var walletInfo: WalletInfoEntity? = null
 
+        // Database Call
         viewModelShared.getWalletInfo()
 
         viewModelShared.walletInfo.observe(viewLifecycleOwner, {
             walletInfo = it
         })
 
-        //
 
+        // Buy Button
         binding.buyButton.setOnClickListener {
 
+            // Checking Wallet Created
             if (checkWalletCreated(walletInfo)) {
+                //Buy Box
                 buyCoinBox(walletInfo!!, coinDetailResponse!!)
             }
         }
 
 
 
+        // Sell Button Listener
         binding.sellButton.setOnClickListener {
 
-
+            // Checking Wallet
             if (checkWalletCreated(walletInfo)) {
 
                 //Getting Coin Detail From Database
                 viewModelShared.getSingleCoin(coinDetailResponse!!.id)
+                // Showing Dialog Box
                 sellCoinBox(walletInfo!!, coinDetailResponse!!)
-                // Showing Box
-
             }
         }
 
         return binding.root
     }
 
+
+    // Favourite Listener
+    private fun favouriteListener(data: SingleCoinDetailResponse) {
+        // Creating Favourite Entity
+        val element = FavouriteEntity(
+            data.id,
+            data.name,
+            data.marketData.current_price.usd.toString(),
+            data.imageLink.url,
+            data.marketData.priceChangePercentage24h.toString()
+        )
+
+        if (binding.favtoggleButton.tag != "ON") {
+            // Changing  the Image To Filled
+            binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+            //  Adding To DB
+            viewModelShared.addToFavourites(element)
+            // Changing the TAG to ON
+            binding.favtoggleButton.tag = "ON"
+        } else {
+            // Deleting From Database
+            viewModelShared.removeCoinFromFavourite(element)
+            //Changing the Image To Border
+            binding.favtoggleButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            // Setting TAG to OFF
+            binding.favtoggleButton.tag = "OFF"
+        }
+    }
+
+
+    // Sell Listener
     private fun sellCoinBox(
         walletInfo: WalletInfoEntity,
         coinDetailResponse: SingleCoinDetailResponse,
@@ -140,6 +181,7 @@ class SingleCoinDetail : Fragment() {
                 walletcoinResponse = it
             }
         })
+
         //Getting View
         val view = LayoutInflater.from(requireContext())
             .inflate(R.layout.sell_box_layout, null, false)
@@ -162,7 +204,7 @@ class SingleCoinDetail : Fragment() {
                 materialBox.setView(view).setBackground(ColorDrawable(Color.TRANSPARENT)).show()
 
 
-//        //Quantity Text Changer Listener
+            // Quantity Text Changer Listener
             quantityText.doOnTextChanged { text, _, _, _ ->
                 if (!text.isNullOrBlank() && quantityText.hasFocus()) {
                     val value = "0$text".toDouble()
@@ -174,9 +216,7 @@ class SingleCoinDetail : Fragment() {
                         .setText("0")
                 }
             }
-//
-//        // Live text Changer Listener
-//
+            // Live text Changer Listener
             priceText.doOnTextChanged { text, _, _, _ ->
                 if (!text.isNullOrBlank() && priceText.hasFocus()) {
 
@@ -205,7 +245,7 @@ class SingleCoinDetail : Fragment() {
                 //Checking wallet is Created Or Not
 
                 if (quantityText.text.toString().toDouble() <= data.quantity
-                        .toDouble() && !quantityText.text.isNullOrBlank() && !priceText.text.isNullOrBlank()
+                    && !quantityText.text.isNullOrBlank() && !priceText.text.isNullOrBlank()
                 ) {
                     coinDetailResponse.let {
 
@@ -242,8 +282,7 @@ class SingleCoinDetail : Fragment() {
                         viewModelShared.getWalletInfo()
 
                         box.dismiss()
-                        Toast.makeText(requireContext(), "INVALID", Toast.LENGTH_LONG).show()
-
+                        Toast.makeText(requireContext(), "Successful", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -281,7 +320,7 @@ class SingleCoinDetail : Fragment() {
         quantityText.doOnTextChanged { text, _, _, _ ->
             if (!text.isNullOrBlank() && quantityText.hasFocus()) {
                 val value = "0$text".toDouble()
-                        .times(coinDetailResponse.marketData.current_price.usd)
+                    .times(coinDetailResponse.marketData.current_price.usd)
                 priceText.setText(value.toString())
             } else if (text.isNullOrBlank()) {
                 priceText.setText("0")
@@ -363,23 +402,21 @@ class SingleCoinDetail : Fragment() {
 
                     viewModelShared.getSingleCoinDetail(coinDetailResponse.id)
                     box.dismiss()
-
+                    Toast.makeText(requireContext(), "Successful", Toast.LENGTH_LONG).show()
                 }
             }
-            Toast.makeText(requireContext(), "INVALID", Toast.LENGTH_LONG).show()
+
         }
     }
 
     private fun checkWalletCreated(walletInfo: WalletInfoEntity?): Boolean {
         if (walletInfo == null) {
-
             // Shifting Screen to Wallet
             Toast.makeText(requireContext(), "Create Wallet First", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_singleCoinDetail_to_walletFragment)
             return false
         }
         return true
-
     }
 
 }

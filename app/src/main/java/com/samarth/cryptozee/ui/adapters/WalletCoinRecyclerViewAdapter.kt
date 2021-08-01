@@ -48,6 +48,7 @@ class WalletCoinRecyclerViewAdapter(
         viewModelShared.allCoinResponse.value!!.forEach {
             if(coinData.coinId == it.id){
                 holder.currentHolding.text = DataFormat.formatPrice((it.currentPrice.toDouble() * coinData.quantity).toString())
+               DataFormat.getChangeFormatted(it.priceChangePercentage24h.toString(),holder.changeInCoin)
             }
         }
     }
