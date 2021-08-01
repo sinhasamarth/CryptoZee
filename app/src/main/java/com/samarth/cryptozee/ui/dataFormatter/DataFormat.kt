@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.widget.TextView
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
+import com.samarth.cryptozee.ui.dataFormatter.SetWalletData.getPriceFormatted
 import java.math.BigDecimal
 import java.net.URL
 import java.text.DecimalFormat
@@ -83,7 +84,7 @@ object DataFormat {
         }
         if (trimToDomain) {
             urlHost = urlHost.replaceBefore('.', "")
-            urlHost = urlHost.subSequence(1,urlHost.length-1).toString()
+            urlHost = urlHost.subSequence(1, urlHost.length - 1).toString()
 
         }
         return (urlHost[0].uppercaseChar().toString() + urlHost.subSequence(1, urlHost.length)
@@ -129,10 +130,9 @@ object DataFormat {
         textView.text = "N/A"
     }
 
-    fun formatQuantity(rawQuantity:Double):String{
+    fun formatQuantity(rawQuantity: Double): String {
         return DecimalFormat("#####.###")
             .format(rawQuantity)
             .toDouble().toString()
     }
-
 }

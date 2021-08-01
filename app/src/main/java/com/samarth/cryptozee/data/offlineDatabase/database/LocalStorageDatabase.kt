@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.samarth.cryptozee.data.offlineDatabase.database.dao.FavouriteDao
-import com.samarth.cryptozee.data.offlineDatabase.database.dao.TransactionDao
-import com.samarth.cryptozee.data.offlineDatabase.database.dao.WalletCoinDao
-import com.samarth.cryptozee.data.offlineDatabase.database.dao.WalletInfoDao
+import com.samarth.cryptozee.data.offlineDatabase.dao.FavouriteDao
+import com.samarth.cryptozee.data.offlineDatabase.dao.TransactionDao
+import com.samarth.cryptozee.data.offlineDatabase.dao.WalletCoinDao
+import com.samarth.cryptozee.data.offlineDatabase.dao.WalletInfoDao
 import com.samarth.cryptozee.data.model.localStorage.FavouriteEntity
 import com.samarth.cryptozee.data.model.localStorage.TransactionEntity
 import com.samarth.cryptozee.data.model.localStorage.WalletCoinEntity
@@ -19,7 +19,7 @@ abstract class LocalStorageDatabase : RoomDatabase() {
     abstract fun favouriteDao(): FavouriteDao
     abstract fun transactionDao(): TransactionDao
     abstract fun walletInfoDao(): WalletInfoDao
-    abstract fun walletCoinDao():WalletCoinDao
+    abstract fun walletCoinDao(): WalletCoinDao
     //Apply Singleton Class
     companion object {
         @Volatile

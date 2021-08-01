@@ -5,10 +5,10 @@ import com.samarth.cryptozee.data.api.RetrofitInstance
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinDetailResponse
-import com.samarth.cryptozee.data.offlineDatabase.database.dao.FavouriteDao
-import com.samarth.cryptozee.data.offlineDatabase.database.dao.TransactionDao
-import com.samarth.cryptozee.data.offlineDatabase.database.dao.WalletCoinDao
-import com.samarth.cryptozee.data.offlineDatabase.database.dao.WalletInfoDao
+import com.samarth.cryptozee.data.offlineDatabase.dao.FavouriteDao
+import com.samarth.cryptozee.data.offlineDatabase.dao.TransactionDao
+import com.samarth.cryptozee.data.offlineDatabase.dao.WalletCoinDao
+import com.samarth.cryptozee.data.offlineDatabase.dao.WalletInfoDao
 import com.samarth.cryptozee.data.model.localStorage.FavouriteEntity
 import com.samarth.cryptozee.data.model.localStorage.TransactionEntity
 import com.samarth.cryptozee.data.model.localStorage.WalletCoinEntity
@@ -94,8 +94,24 @@ class Repository(
     }
 
     //Getting All the Coins
-    suspend fun getAllWalletCoins():List<WalletCoinEntity>{
+     fun getAllWalletCoins():List<WalletCoinEntity>{
         return walletCoinDao.walletCoin()
+    }
+
+    // Getting Single Coin Detail
+
+    suspend fun getSingleCoinDetail(coinId: String):WalletCoinEntity{
+        return  walletCoinDao.getCoinDetail(coinId)
+    }
+
+    // Updating the coin
+    suspend fun updateWalletCoin(quantity:Double , coinId: String){
+        walletCoinDao.updateCoin(quantity , coinId)
+    }
+
+    // Removing Coin From Wallet
+    suspend fun removeCoinFromWallet(walletCoinEntity: WalletCoinEntity){
+        walletCoinDao.removeCoin(walletCoinEntity)
     }
 
 }

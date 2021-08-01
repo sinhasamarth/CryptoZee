@@ -37,6 +37,9 @@ class WalletFragment : Fragment(), SingleCoinItemClickListeners {
         // View Binding
         binding = WalletFragmentBinding.inflate(layoutInflater)
 
+        // Show Coins in RecyclerView
+        viewModelShared.getAllWalletCoin()
+
         // Getting Wallet Details
         viewModelShared.getWalletInfo()
 
@@ -62,9 +65,6 @@ class WalletFragment : Fragment(), SingleCoinItemClickListeners {
 
         // Setting WalletData
         SetWalletData.setWalletDeatils(binding, walletInfoEntity)
-
-        // Show Coins in RecyclerView
-        viewModelShared.getAllWalletCoin()
 
         // Setting Layout Manager
         binding.coinRecyclerView.layoutManager = LinearLayoutManager(context)

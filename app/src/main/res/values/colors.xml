@@ -12,4 +12,6 @@
     <color name="Pink">#D03A70</color>
     <color name="GreenText">#A2D970</color>
     <color name="RedText">#F24E4E</color>
+    <color name="greenBg">#4CAF50</color>
+    <color name="redBg">#E91E1E</color>
 </resources>

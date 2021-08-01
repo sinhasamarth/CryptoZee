@@ -31,18 +31,17 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
         binding = HomeFragmentBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        if (savedInstanceState != null)
-         Log.d("HII", savedInstanceState.getInt("LastAdapterPosition").toString())
-        else
-            Log.d("HII", lastPosistion.toString())
+
         binding.homeRecylerView.layoutManager = LinearLayoutManager(context)
-        viewModelShared.getAllCoin()
+
+        if(viewModelShared.allCoinResponse.value == null) {
+            viewModelShared.getAllCoin()
+        }
+
         viewModelShared.allCoinResponse.observe(viewLifecycleOwner, {
             it?.let {
-                Log.d(LOG_TAG, it.toString())
                 apiResponse = it
                 binding.homeRecylerView.adapter = HomeRecylerViewAdapter(it, this)
-
             }
         })
 

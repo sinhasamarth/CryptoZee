@@ -35,9 +35,17 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val walletInfo: MutableLiveData<WalletInfoEntity> = MutableLiveData<WalletInfoEntity>()
     val allWalletCoin: MutableLiveData<List<WalletCoinEntity>> =
         MutableLiveData<List<WalletCoinEntity>>()
+
     //Sharing Data Between Fragments
     var coinIDForSharing: String? = null
 
+    // Getting  Wallet Coin Details
+    val walletSingleCoin by lazy {
+        MutableLiveData<WalletCoinEntity>()
+    }
+
+
+    // All  Market Coin Api
     fun getAllCoin() {
         viewModelScope.launch {
             try {
@@ -48,6 +56,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    // Single Coin Detail Api Call
     fun getSingleCoinDetail(coinId: String) {
         viewModelScope.launch {
             try {
@@ -59,6 +68,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     }
 
+    // Single Coin Chart Api Call
+
     fun getCoinChart(coinId: String) {
         viewModelScope.launch {
             try {
@@ -69,18 +80,21 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    // Adding to Fav
     fun addToFavourites(favouriteEntity: FavouriteEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addFavourite(favouriteEntity)
         }
     }
 
+    // Getting All Fav Coins
     fun getAllFavouriteCoin() {
         viewModelScope.launch(Dispatchers.IO) {
             allFavouriteCoin.postValue(repository.getAllFavourite())
         }
     }
 
+    // Removing From Fav
     fun removeCoinFromFavourite(entity: FavouriteEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.delFavourite(entity)
@@ -101,22 +115,45 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun upDateWallet(usableMoney: String){
-        viewModelScope.launch (Dispatchers.IO){
+    fun upDateWallet(usableMoney: String) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.updateWallet(usableMoney)
         }
     }
 
+    fun addWalletSingleCoin(walletCoinEntity: WalletCoinEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            walletSingleCoin.postValue(repository.getSingleCoinDetail(walletCoinEntity.coinId))
+        }
+        if (walletSingleCoin.value == null) {
+            addCoinToWallet(walletCoinEntity)
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.updateWalletCoin(
+                    walletCoinEntity.quantity + walletSingleCoin.value?.quantity!!,
+                    walletCoinEntity.coinId
+                )
+            }
+        }
+    }
+
+    // Get Single Coin Details
+
+    fun getSingleCoin(coinId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            walletSingleCoin.postValue(repository.getSingleCoinDetail(coinId))
+        }
+    }
     //Add To Transaction
 
-    fun addToTransaction(transactionEntity: TransactionEntity){
+    fun addToTransaction(transactionEntity: TransactionEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addTransaction(transactionEntity)
         }
     }
 
     //Add Coin to Wallet
-    fun addCoinToWallet(coinEntity: WalletCoinEntity){
+    fun addCoinToWallet(coinEntity: WalletCoinEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addCoinToWallet(coinEntity)
         }
@@ -126,6 +163,18 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun getAllWalletCoin() {
         viewModelScope.launch(Dispatchers.IO) {
             allWalletCoin.postValue(repository.getAllWalletCoins())
+        }
+    }
+
+    fun updateCoinQuantity(quantity: Double, walletCoinEntity: WalletCoinEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (quantity <= 0.00001 || quantity == 0.00) {
+                repository.removeCoinFromWallet(walletCoinEntity)
+            }
+            else {
+                repository.updateWalletCoin(quantity, walletCoinEntity.coinId)
+            }
+
         }
     }
 

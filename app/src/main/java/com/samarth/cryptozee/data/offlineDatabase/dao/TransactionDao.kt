@@ -1,4 +1,4 @@
-package com.samarth.cryptozee.data.offlineDatabase.database.dao
+package com.samarth.cryptozee.data.offlineDatabase.dao
 
 import androidx.room.*
 import com.samarth.cryptozee.data.model.localStorage.TransactionEntity
@@ -7,7 +7,7 @@ import com.samarth.cryptozee.data.model.localStorage.TransactionEntity
 interface TransactionDao {
 
     // Inserting into DB
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToTransaction(transactionEntity: TransactionEntity)
 
     //GETTING FROM DB

@@ -39,12 +39,16 @@ class WalletCoinRecyclerViewAdapter(
         holder.quantityOfCoin.text = DataFormat.formatQuantity(coinData.quantity)
         holder.nameOfCoin.text = coinData.coinName
         holder.symbolOfCoin.text = " / " + coinData.coinSymbol
-        holder.currentHolding.text = "Loading"
 
         //Handling Clicks
         holder.itemView.setOnClickListener {
             viewModelShared.coinIDForSharing = coinData.coinId
             walletFragment.onItemClick(position)
+        }
+        viewModelShared.allCoinResponse.value!!.forEach {
+            if(coinData.coinId == it.id){
+                holder.currentHolding.text = DataFormat.formatPrice((it.currentPrice.toDouble() * coinData.quantity).toString())
+            }
         }
     }
 
