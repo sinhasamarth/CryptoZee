@@ -165,6 +165,7 @@ class SingleCoinDetail : Fragment() {
 
 
     // Sell Listener
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     private fun sellCoinBox(
         walletInfo: WalletInfoEntity,
         coinDetailResponse: SingleCoinDetailResponse,
@@ -313,7 +314,7 @@ class SingleCoinDetail : Fragment() {
         //Setting Background Color Transparent and showing it
         val box =
             materialBox.setView(view).setBackground(ColorDrawable(Color.TRANSPARENT)).show()
-        balanceText.setText("Balance - " + DataFormat.formatPrice(walletInfo.usableMoney))
+        balanceText.text = "Balance - " + DataFormat.formatPrice(walletInfo.usableMoney)
 
 
         //Quantity Text Changer Listener
@@ -332,7 +333,7 @@ class SingleCoinDetail : Fragment() {
         priceText.doOnTextChanged { text, _, _, _ ->
             if (!text.isNullOrBlank() && priceText.hasFocus()) {
 
-                val value = "0$text".toString().toDouble()
+                val value = "0$text".toDouble()
                     .div(coinDetailResponse.marketData.current_price.usd)
 
                 quantityText.setText(value.toString())

@@ -3,6 +3,7 @@ package com.samarth.cryptozee.ui.base.fragments.home
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.samarth.cryptozee.databinding.HomeFragmentBinding
 import com.samarth.cryptozee.ui.adapters.HomeRecylerViewAdapter
 import com.samarth.cryptozee.ui.listeners.SingleCoinItemClickListeners
 import com.samarth.cryptozee.viewModelShared
+
 
 private lateinit var binding: HomeFragmentBinding
 
@@ -27,23 +29,27 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
 
         binding = HomeFragmentBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+
+        // Setting Nav Bar
+        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar!!.title = "Market";
         setHasOptionsMenu(true)
 
+        // Setting Layout
         binding.homeRecylerView.layoutManager = LinearLayoutManager(context)
 
-        if(viewModelShared.allCoinResponse.value == null) {
-            viewModelShared.getAllCoin()
-        }
+        // Api Call For Coins
+        viewModelShared.getAllCoin()
 
-        viewModelShared.allCoinResponse.observe(viewLifecycleOwner, {
+        viewModelShared.allCoinResponse.observe(viewLifecycleOwner) {
             it?.let {
+                // Caching
                 apiResponse = it
+                // Setting Data in Recycler View
                 binding.homeRecylerView.adapter = HomeRecylerViewAdapter(it, this)
             }
-        })
-
-
-
+        }
+        // Returning View
         return binding.root
     }
 
@@ -53,6 +59,7 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search_home)
+
         val searchView = item?.actionView as SearchView
         binding.homeRecylerView.adapter = HomeRecylerViewAdapter(searchResponse, this)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

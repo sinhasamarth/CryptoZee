@@ -49,6 +49,8 @@ class Repository(
         favouriteDao.delFavourite(favouriteEntity)
     }
 
+    // Getting all the Favourite Coin
+
     fun getAllFavourite(): List<FavouriteEntity> {
         return favouriteDao.getAllFavourite()
     }
