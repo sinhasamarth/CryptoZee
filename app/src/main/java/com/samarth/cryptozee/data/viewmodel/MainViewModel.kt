@@ -30,6 +30,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         MutableLiveData<ArrayList<SingleCoinChartResponse>>()
     val allFavouriteCoin: MutableLiveData<List<FavouriteEntity>> =
         MutableLiveData<List<FavouriteEntity>>()
+    var marketCoinResponse: MarketCoinResponse = MarketCoinResponse()
 
     //Wallet Details
     val walletInfo: MutableLiveData<WalletInfoEntity> = MutableLiveData<WalletInfoEntity>()
