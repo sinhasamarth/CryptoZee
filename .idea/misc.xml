@@ -3,34 +3,44 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/background_transparent.xml" value="0.125" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/custom_check_box.xml" value="0.13703703703703704" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/fav_toggle_button.xml" value="0.1763888888888889" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/favorite.xml" value="0.1" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/gradient_wallet.xml" value="0.1763888888888889" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/home_24.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_baseline_notifications_active_24.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_baseline_radio_button_unchecked_24.xml" value="0.13703703703703704" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_checked.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_icons8_loading.xml" value="0.13703703703703704" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_launcher_background.xml" value="0.16296296296296298" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/icons8_heart.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/icons8_home.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/icons8_news.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/icons8_wallet.xml" value="0.13703703703703704" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/drawable/recyler_view_upper_round.xml" value="0.1763888888888889" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/activity_main.xml" value="0.15" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/alert_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/background_transparent.xml" value="0.1" />
-        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/buy_box_layout.xml" value="0.22" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/buy_box_layout.xml" value="0.17" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/crypto_show_recylce_elements.xml" value="0.1" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/favourite_fragment.xml" value="0.16203703703703703" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/fragment_crypto.xml" value="0.1" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/home_fragment.xml" value="0.16203703703703703" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/main_home.xml" value="0.16203703703703703" />
-        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/sell_box_layout.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/single_coin_detail_fragment.xml" value="0.25" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/single_coin_fragement.xml" value="0.18229166666666666" />
-        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/transaction_items.xml" value="0.25" />
-        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/wallet_coin_recylcer_view.xml" value="0.18" />
-        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/wallet_fragment.xml" value="0.18" />
+        <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/wallet_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/layout/welcome_material_box_wallet.xml" value="0.33" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/menu/main_bottom_navigation_menu.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/menu/serach_menu.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/favourite_fragment.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/wallet_fragment.xml" value="0.12817028985507245" />
       </map>
     </option>
   </component>

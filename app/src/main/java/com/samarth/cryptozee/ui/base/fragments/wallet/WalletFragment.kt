@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -36,6 +37,11 @@ class WalletFragment : Fragment(), SingleCoinItemClickListeners {
 
         // View Binding
         binding = WalletFragmentBinding.inflate(layoutInflater)
+
+        // Tool Bar
+        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar!!.title = "Market";
+
 
         // Show Coins in RecyclerView
         viewModelShared.getAllWalletCoin()
@@ -109,15 +115,15 @@ class WalletFragment : Fragment(), SingleCoinItemClickListeners {
         button.setOnClickListener {
             Snackbar.make(binding.root, name.text.toString(), Snackbar.LENGTH_LONG).show()
             binding.WalletIntroFrameLayout.visibility = View.GONE
-            viewModelShared.createWallet(
-                WalletInfoEntity(
-                    0,
-                    name.text.toString(),
-                    "10000",
-                    "10000",
-                    SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date())
-                )
+            val walletEntity = WalletInfoEntity(
+                0,
+                name.text.toString(),
+                "10000",
+                "10000",
+                SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date())
             )
+            viewModelShared.createWallet( walletEntity)
+            showWalletDetails(walletEntity)
             binding.walletDetailsLayout.visibility = View.VISIBLE
         }
     }

@@ -13,7 +13,7 @@ import java.text.DecimalFormat
 
 object SetWalletData {
     fun setWalletDeatils(binding: WalletFragmentBinding, walletInfoEntity: WalletInfoEntity) {
-        binding.displayNameOFOwner.text = "Welcome  ${walletInfoEntity.name}"
+        binding.toolbar.title = "Welcome  ${walletInfoEntity.name}"
         val finalBalance =  getBalance(walletInfoEntity.usableMoney.toDouble())
         binding.currentBalance.text = getPriceFormatted(finalBalance)
         binding.percentofChange.text = getChangeInWallet(finalBalance)
