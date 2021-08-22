@@ -2,6 +2,7 @@ package com.samarth.cryptozee.ui.dataFormatter
 
 import android.graphics.Color
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.samarth.cryptozee.R
@@ -58,10 +59,18 @@ object SetSingleCoinData {
         binding: SingleCoinDetailFragmentBinding,
         coinDetailResponse: SingleCoinDetailResponse?,
     ) {
+        // Formatting Values of Chart
         val formattedResponse = DataFormat.formatChartResponse(response)
+
+        // Checking 1 Day By Default
         binding.toggleButton.check(R.id.OneDay)
+
         DataFormat.getChangeFormatted(coinDetailResponse.toString(), binding.changeInCoin)
+
+        // Setting Chart
         setToChart(formattedResponse, binding, 0, coinDetailResponse)
+
+        // OnClick Listener of Toggler Button
         binding.toggleButton.addOnButtonCheckedListener { _, checkedId, _ ->
             when (checkedId) {
                 R.id.OneDay -> setToChart(formattedResponse, binding, 0, coinDetailResponse)
@@ -79,6 +88,8 @@ object SetSingleCoinData {
         interval: Int,
         responseSingleCoin: SingleCoinDetailResponse?
     ) {
+
+        // Setting Chart
         val aaChartModel: AAChartModel = AAChartModel()
             .chartType(AAChartType.Line)
             .axesTextColor("#ffffff")
@@ -95,6 +106,7 @@ object SetSingleCoinData {
                         .data(prices[interval].toArray())
                 )
             )
+
         binding.chart.aa_drawChartWithChartModel(aaChartModel)
         when (interval) {
             1 -> DataFormat.getChangeFormatted(
@@ -111,8 +123,12 @@ object SetSingleCoinData {
             )
             4 -> DataFormat.changeTextToNA(binding.changeInCoin)
         }
-    }
 
+        // Stop Loading
+        binding.loadingScreen.visibility = View.INVISIBLE
+        binding.finalScreen.visibility = View.VISIBLE
+
+    }
 
 
 }

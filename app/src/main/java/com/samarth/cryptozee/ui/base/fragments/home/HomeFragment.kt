@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.samarth.cryptozee.MainActivity
 import com.samarth.cryptozee.R
 import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinResponse
 import com.samarth.cryptozee.databinding.HomeFragmentBinding
@@ -41,12 +42,18 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
         // Api Call For Coins
         viewModelShared.getAllCoin()
 
+
+
         viewModelShared.allCoinResponse.observe(viewLifecycleOwner) {
             it?.let {
                 // Caching
                 apiResponse = it
                 // Setting Data in Recycler View
                 binding.homeRecylerView.adapter = HomeRecylerViewAdapter(it, this)
+                if(!it.isNullOrEmpty()){
+                    MainActivity.stopLoading()
+                }
+
             }
         }
         // Returning View

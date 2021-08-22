@@ -52,8 +52,13 @@ class SingleCoinDetail : Fragment() {
         // API Response Variable
         var coinDetailResponse: SingleCoinDetailResponse? = null
 
+//        //Progress Bar Start
+        binding.loadingScreen.visibility = View.VISIBLE
+        binding.finalScreen.visibility = View.INVISIBLE
+
         // API Calling
         viewModelShared.getSingleCoinDetail(coinId)
+
 
         // Getting Live Data
         viewModelShared.singleCoinResponse.observe(viewLifecycleOwner, { response ->
@@ -70,10 +75,15 @@ class SingleCoinDetail : Fragment() {
         // API Call for the Chart
         viewModelShared.getCoinChart(coinId)
 
+
         // Getting Live Data Of Chart
         viewModelShared.singleCoinChartResponse.observe(viewLifecycleOwner, { response ->
             // Setting chart To View
-            SetSingleCoinData.setAllChartsToView(response, binding, coinDetailResponse)
+            response?.let {
+                SetSingleCoinData.setAllChartsToView(response, binding, coinDetailResponse)
+                viewModelShared.singleCoinChartResponse.postValue(null)
+            }
+
         })
 
 

@@ -22,7 +22,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nothing in Favourite"
+            android:text="@string/nothing_in_favourite"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textAlignment="center"
             android:textStyle="bold"/>
@@ -32,9 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Add Coin"
-            android:textColor="@color/white"
-            />
+            android:text="@string/add_coin"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout

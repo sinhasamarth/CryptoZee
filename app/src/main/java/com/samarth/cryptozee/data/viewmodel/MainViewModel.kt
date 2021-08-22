@@ -30,7 +30,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         MutableLiveData<ArrayList<SingleCoinChartResponse>>()
     val allFavouriteCoin: MutableLiveData<List<FavouriteEntity>> =
         MutableLiveData<List<FavouriteEntity>>()
-    var marketCoinResponse: MarketCoinResponse = MarketCoinResponse()
 
     //Wallet Details
     val walletInfo: MutableLiveData<WalletInfoEntity> = MutableLiveData<WalletInfoEntity>()
@@ -50,7 +49,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun getAllCoin() {
         viewModelScope.launch {
             try {
-                allCoinResponse.value = repository.getAllCoin()
+                allCoinResponse.postValue(repository.getAllCoin())
+
             } catch (e: Exception) {
                 Log.d("MYTAG", e.toString())
             }
@@ -74,7 +74,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun getCoinChart(coinId: String) {
         viewModelScope.launch {
             try {
-                singleCoinChartResponse.value = repository.singleCoinChart(coinId)
+                singleCoinChartResponse.postValue(repository.singleCoinChart(coinId))
             } catch (e: Exception) {
                 Log.d("MYTAG", e.toString())
             }
