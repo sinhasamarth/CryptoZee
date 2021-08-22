@@ -38,6 +38,13 @@
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/menu/serach_menu.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/Samarth/AndroidStudioProjects/CryptoZee/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/crypto_show_recylce_elements.xml" value="0.12817028985507245" />
+        <entry key="app/src/main/res/layout/favourite_fragment.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/single_coin_detail_fragment.xml" value="0.165625" />
+        <entry key="app/src/main/res/layout/wallet_fragment.xml" value="0.12817028985507245" />
+        <entry key="app/src/main/res/layout/welcome_material_box_wallet.xml" value="0.12817028985507245" />
       </map>
     </option>
   </component>

@@ -2,8 +2,8 @@ package com.samarth.cryptozee.ui.base.fragments.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
@@ -14,8 +14,8 @@ import com.samarth.cryptozee.data.model.api.marketListCoinResponse.MarketCoinRes
 import com.samarth.cryptozee.databinding.HomeFragmentBinding
 import com.samarth.cryptozee.ui.adapters.HomeRecylerViewAdapter
 import com.samarth.cryptozee.ui.listeners.SingleCoinItemClickListeners
-import com.samarth.cryptozee.utils.CONSTANTS.Companion.LOG_TAG
 import com.samarth.cryptozee.viewModelShared
+
 
 private lateinit var binding: HomeFragmentBinding
 
@@ -30,28 +30,30 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
 
         binding = HomeFragmentBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+
+        // Setting Nav Bar
+        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar!!.title = "Market"
         setHasOptionsMenu(true)
-        // Starting Loading
 
-        MainActivity.startLoading()
-
-        // Setting Recycler View Layout
+        // Setting Layout
         binding.homeRecylerView.layoutManager = LinearLayoutManager(context)
 
-        // Calling for getting the coin from API
+        // Api Call For Coins
         viewModelShared.getAllCoin()
 
-        // Setting to recycler View
-        viewModelShared.allCoinResponse.observe(viewLifecycleOwner, {
+        viewModelShared.allCoinResponse.observe(viewLifecycleOwner) {
             it?.let {
-                MainActivity.stopLoading()
-                Log.d(LOG_TAG, it.toString())
+                // Caching
                 apiResponse = it
+                // Setting Data in Recycler View
                 binding.homeRecylerView.adapter = HomeRecylerViewAdapter(it, this)
+                if(!it.isNullOrEmpty()){
+                    MainActivity.stopLoading()
+                }
 
             }
-        })
-
+        }
         // Returning View
         return binding.root
     }
@@ -62,6 +64,7 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search_home)
+
         val searchView = item?.actionView as SearchView
         binding.homeRecylerView.adapter = HomeRecylerViewAdapter(searchResponse, this)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -92,18 +95,12 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
-    // On click item Handler
     override fun onItemClick(position: Int) {
-        // Setting argument
         // Replacing Fragment
-        val data = if (queryText.isNullOrBlank()) apiResponse[position]
-                    else searchResponse[position]
-          viewModelShared.apply {
-              this.coinIDForSharing = data.id
-              this.coinForSharingChange = data.priceChangePercentage24h.toString()
-              this.coinForSharingImage = data.image
-          }
-
+        if (queryText.isNullOrBlank())
+            viewModelShared.coinIDForSharing = apiResponse[position].id
+        else
+            viewModelShared.coinIDForSharing = searchResponse[position].id
         findNavController().navigate(R.id.action_homeFragment_to_singleCoinDetail)
 
     }

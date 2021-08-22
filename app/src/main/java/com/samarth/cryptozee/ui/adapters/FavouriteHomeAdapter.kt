@@ -8,14 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.samarth.cryptozee.R
-import com.samarth.cryptozee.data.model.localStorage.entities.FavouriteEntity
+import com.samarth.cryptozee.data.model.localStorage.FavouriteEntity
 import com.samarth.cryptozee.ui.base.fragments.favourite.FavouriteFragment
 import com.samarth.cryptozee.ui.dataFormatter.DataFormat
 
-class FavouriteHomeAdapter(
-    private val listFavouriteEntity: List<FavouriteEntity>,
-    private val itemClickListnersFavourite: FavouriteFragment,
-) :
+class FavouriteHomeAdapter(private val listFavouriteEntity: List<FavouriteEntity>, val itemClickListners: FavouriteFragment) :
     RecyclerView.Adapter<FavouriteHomeAdapter.FavouriteViewHolder>() {
 
     inner class FavouriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -47,7 +44,7 @@ class FavouriteHomeAdapter(
         holder.nameOfCoin.text = DataFormat.formatName(dataForSet.coinName!!)
 
         //Setting Price of Coin
-        holder.priceOfCoin.text = DataFormat.formatPrice(dataForSet.price.toString())
+        holder.priceOfCoin.text = DataFormat.formatPrice(dataForSet.price!!)
 
         // Getting Formatted Data  of Change in 24 Hours
         DataFormat.getChangeFormatted(
@@ -57,14 +54,9 @@ class FavouriteHomeAdapter(
 
         // Handling On Click On itemView
         holder.itemView.setOnClickListener {
-            if (itemClickListnersFavourite != null)
-                itemClickListnersFavourite.onItemClick(position)
-
+            itemClickListners.onItemClick(position)
         }
     }
 
-    override fun getItemCount(): Int {
-        return listFavouriteEntity.size
-
-    }
+    override fun getItemCount(): Int = listFavouriteEntity.size
 }

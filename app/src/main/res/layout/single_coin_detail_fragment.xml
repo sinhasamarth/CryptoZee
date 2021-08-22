@@ -6,359 +6,426 @@
     android:layout_height="match_parent"
     tools:context=".ui.base.fragments.home.SingleCoinDetail">
 
-    <ScrollView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loadingScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        tools:context=".OnClick">
+        android:gravity="center"
+        android:visibility="visible"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/circle" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_rawRes="@raw/waiting" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/finalScreen"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            tools:context=".OnClick">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="15sp"
-                android:paddingTop="15sp"
-                android:paddingRight="15sp">
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-
-                <TextView
-                    android:id="@+id/NameOfCoin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/loading"
-                    android:textAlignment="textStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/favtoggleButton"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/favtoggleButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/ic_baseline_favorite_border_24"
-                    android:tag="OFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/NameOfCoin">
+                    android:padding="15sp">
+
 
                     <TextView
-                        android:id="@+id/PriceOfCoin"
-                        android:layout_width="match_parent"
+                        android:id="@+id/NameOfCoin"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="@string/loading"
+                        android:layout_marginTop="16dp"
+                        android:text="Coin Name"
                         android:textAlignment="textStart"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/favtoggleButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/changeInCoin"
+                    <ImageView
+                        android:id="@+id/favtoggleButton"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_baseline_favorite_border_24"
+                        android:tag="OFF"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:text= "@string/loading"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/NameOfCoin">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/PriceOfCoin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bitcoin"
+                            android:textAlignment="textStart"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textStyle="bold" />
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/loadingAnimationChart"
-                    android:visibility="visible"
-                    android:layout_width="0dp"
-                    android:layout_height="300dp"
-                    app:lottie_rawRes="@raw/loading"
-                    app:lottie_autoPlay="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintBottom_toTopOf="@id/toggleButton"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linearLayout"
-                    android:background="@color/Bg"
-                    android:backgroundTint="@color/Bg"/>
-                <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-                    android:id="@+id/chart"
-                    android:layout_width="0dp"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:animationCache="false"
-                    app:layout_constraintBottom_toTopOf="@id/toggleButton"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+                        <TextView
+                            android:id="@+id/changeInCoin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Bitcoin"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                        android:id="@+id/chart"
+                        android:layout_width="0dp"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintBottom_toTopOf="@id/toggleButton"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
 
 
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/toggleButton"
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggleButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/chart"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <Button
+                            android:id="@+id/OneDay"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1d" />
+
+                        <Button
+                            android:id="@+id/OneWeek"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1w" />
+
+                        <Button
+                            android:id="@+id/OneMonth"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1m" />
+
+                        <Button
+                            android:id="@+id/OneYear"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1y" />
+
+                        <Button
+                            android:id="@+id/max"
+                            style="@style/NoBorderTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/all" />
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/chart"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
+                    android:background="@drawable/recyler_view_upper_round"
+                    android:orientation="vertical"
+                    android:padding="15sp">
 
-                    <Button
-                        android:id="@+id/OneDay"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_1d" />
+                        android:padding="7dp">
 
-                    <Button
-                        android:id="@+id/OneWeek"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/rank"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/rank"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_1w" />
+                        android:padding="7dp">
 
-                    <Button
-                        android:id="@+id/OneMonth"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/name"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/NameOfCoins"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_1m" />
+                        android:padding="7dp">
 
-                    <Button
-                        android:id="@+id/OneYear"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/symbol"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Symbol"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_1y" />
+                        android:weightSum="3"
+                        android:padding="7dp">
 
-                    <Button
-                        android:id="@+id/max"
-                        style="@style/NoBorderTheme"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/website"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/website"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/all" />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+                        android:weightSum="3"
+                        android:padding="7dp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/explore"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Explore_url"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp">
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/total_supply"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_supply"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/circulating_supply"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/circulating_supply"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/n_a"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </ScrollView>
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/recyler_view_upper_round"
-            android:orientation="vertical"
-            android:padding="15sp">
+            android:background="@color/Bg"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
 
-
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buyButton"
+                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="7dp">
+                android:layout_weight="1"
+                android:backgroundTint="@color/greenBg"
+                android:text="BUY"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/rank"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/rank"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/n_a"
-                    android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-
-                    android:textStyle="normal" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sellButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="7dp">
-
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/NameOfCoins"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/n_a"
-                    android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-
-                    android:textStyle="normal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="7dp">
-
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/symbol"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/Symbol"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/n_a"
-                    android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textStyle="normal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="7dp">
-
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/website"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/website"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/n_a"
-                    android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-
-                    android:textStyle="normal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="7dp">
-
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/explore"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/Explore_url"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/n_a"
-                    android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    android:textStyle="normal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="7dp">
-
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/total_supply"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/total_supply"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/n_a"
-                    android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-
-                    android:textStyle="normal" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/circulating_supply"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/circulating_supply"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/n_a"
-                    android:textAlignment="textEnd"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textStyle="normal" />
-            </LinearLayout>
-
+                android:layout_weight="1"
+                android:backgroundTint="@color/redBg"
+                android:text="@string/sell"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</ScrollView></FrameLayout>
+</FrameLayout>

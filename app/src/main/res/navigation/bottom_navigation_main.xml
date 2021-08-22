@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_singleCoinDetail_to_favouriteFragment"
             app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_singleCoinDetail_to_walletFragment"
+            app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_singleCoinDetail_to_walletFragment2"
+            app:destination="@id/walletFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -24,6 +30,9 @@
         <action
             android:id="@+id/action_homeFragment_to_singleCoinDetail"
             app:destination="@id/singleCoinDetail" />
+        <action
+            android:id="@+id/action_homeFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -32,9 +41,20 @@
         <action
             android:id="@+id/action_favouriteFragment_to_singleCoinDetail"
             app:destination="@id/singleCoinDetail" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/walletFragment"
         android:name="com.samarth.cryptozee.ui.base.fragments.wallet.WalletFragment"
-        android:label="WalletFragment" />
+        android:label="WalletFragment" >
+        <action
+            android:id="@+id/action_walletFragment_to_singleCoinDetail"
+            app:destination="@id/singleCoinDetail" />
+        <action
+            android:id="@+id/action_walletFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

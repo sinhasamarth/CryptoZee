@@ -2,9 +2,9 @@ package  com.samarth.cryptozee.ui.dataFormatter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.util.Log
 import android.widget.TextView
 import com.samarth.cryptozee.data.model.api.singleCoinResponse.SingleCoinChartResponse
+import com.samarth.cryptozee.ui.dataFormatter.SetWalletData.getPriceFormatted
 import java.math.BigDecimal
 import java.net.URL
 import java.text.DecimalFormat
@@ -44,9 +44,8 @@ object DataFormat {
         }
     }
 
-    fun formatPrice(rawPrice: String): String {
-
-        if (rawPrice.toDouble() <= 0.01) {
+    fun formatPrice(rawPrice: String, accurateToDecimal:Boolean = false ): String {
+        if (rawPrice.toDouble() <= 0.01 && !accurateToDecimal) {
             val price = BigDecimal(rawPrice)
             return "$$price"
         }
@@ -85,7 +84,7 @@ object DataFormat {
         }
         if (trimToDomain) {
             urlHost = urlHost.replaceBefore('.', "")
-            urlHost = urlHost.subSequence(1,urlHost.length-1).toString()
+            urlHost = urlHost.subSequence(1, urlHost.length - 1).toString()
 
         }
         return (urlHost[0].uppercaseChar().toString() + urlHost.subSequence(1, urlHost.length)
@@ -97,20 +96,20 @@ object DataFormat {
     fun formatChartResponse(rawData: ArrayList<SingleCoinChartResponse>): ArrayList<ArrayList<Double>> {
         val response = ArrayList<ArrayList<Double>>(0)
         try {
-            response.add(getResponseofCharttoArrayList(rawData[0]))
-            response.add(getResponseofCharttoArrayList(rawData[1]))
-            response.add(getResponseofCharttoArrayList(rawData[2]))
-            response.add(getResponseofCharttoArrayList(rawData[3]))
-            response.add(getResponseofCharttoArrayList(rawData[4]))
+            response.add(getResponsiveCharityArrayList(rawData[0]))
+            response.add(getResponsiveCharityArrayList(rawData[1]))
+            response.add(getResponsiveCharityArrayList(rawData[2]))
+            response.add(getResponsiveCharityArrayList(rawData[3]))
+            response.add(getResponsiveCharityArrayList(rawData[4]))
 
         } catch (e: Exception) {
-            Log.d("EXEPTION ", e.toString())
+
         }
         return response
     }
 
     // Changing Api Response To ArrayList
-    private fun getResponseofCharttoArrayList(rawData: SingleCoinChartResponse): ArrayList<Double> {
+    private fun getResponsiveCharityArrayList(rawData: SingleCoinChartResponse): ArrayList<Double> {
         val response = ArrayList<Double>(0)
         rawData.prices.forEach {
             if (it[1] >= 0.01) {
@@ -131,4 +130,9 @@ object DataFormat {
         textView.text = "N/A"
     }
 
+    fun formatQuantity(rawQuantity: Double): String {
+        return DecimalFormat("#####.###")
+            .format(rawQuantity)
+            .toDouble().toString()
+    }
 }
