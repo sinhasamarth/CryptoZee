@@ -1,6 +1,8 @@
 # CryptoZee
 !["SSSS"](./images/about.png)
 
+### For Downloading the App Check [Release Page](https://github.com/sinhasamarth/CryptoZee/releases/) 
+
 # Screenshots
 !["SSSS"](./images/screenshots1.png)
 !["SSSS"](./images/screenshots2.png)
