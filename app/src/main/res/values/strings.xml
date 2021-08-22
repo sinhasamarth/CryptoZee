@@ -41,4 +41,5 @@
     <string name="add_coins_in_wallet">Add Coins In Wallet</string>
     <string name="no_coin_found">No Coin Found</string>
     <string name="coins">Coins</string>
+    <string name="buy_coin">Buy Coin</string>
 </resources>

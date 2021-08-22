@@ -77,9 +77,19 @@ class WalletFragment : Fragment(), SingleCoinItemClickListeners {
 
         // Setting Adapter
         viewModelShared.allWalletCoin.observe(viewLifecycleOwner, {
-            it?.let {
-                binding.coinRecyclerView.adapter = WalletCoinRecyclerViewAdapter(it, it.size, this)
-            }
+
+            // Handling When Wallet is Empty
+                if(it.isNullOrEmpty()){
+                    binding.nothingUi.visibility = View.VISIBLE
+                    binding.WalletsCoinDetails.visibility = View.GONE
+                }
+                else{
+                    binding.nothingUi.visibility = View.GONE
+                    binding.WalletsCoinDetails.visibility = View.VISIBLE
+                    binding.coinRecyclerView.adapter = WalletCoinRecyclerViewAdapter(it, it.size, this)
+                }
+
+
         })
     }
 
