@@ -49,8 +49,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun getAllCoin() {
         viewModelScope.launch {
             try {
-                allCoinResponse.postValue(repository.getAllCoin())
-
+                allCoinResponse.value = repository.getAllCoin()
             } catch (e: Exception) {
                 Log.d("MYTAG", e.toString())
             }

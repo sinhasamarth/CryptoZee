@@ -205,7 +205,7 @@ class SingleCoinDetail : Fragment() {
         val sellCoinButton = view.findViewById<Button>(R.id.SellCoin)
 
         walletcoinResponse?.let { data ->
-            Log.d("HII", walletcoinResponse.toString())
+//            Log.d("HII", walletcoinResponse.toString())
             availableQuantity.text = "Available - " + DataFormat.formatQuantity(data.quantity)
             //Setting CustomView On Material Box
             val materialBox = MaterialAlertDialogBuilder(requireContext())
@@ -375,7 +375,7 @@ class SingleCoinDetail : Fragment() {
                     val transaction = TransactionEntity(
                         0,
                         it.name,
-                        quantityText.text.toString().toDouble(),
+                        DataFormat.formatQuantity(quantityText.text.toString().toDouble()).toDouble(),
                         SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date()),
                         it.id,
                         it.symbol,

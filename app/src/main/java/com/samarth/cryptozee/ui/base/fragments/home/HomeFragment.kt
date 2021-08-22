@@ -33,7 +33,7 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
 
         // Setting Nav Bar
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
-        (activity as AppCompatActivity).supportActionBar!!.title = "Market";
+        (activity as AppCompatActivity).supportActionBar!!.title = "Market"
         setHasOptionsMenu(true)
 
         // Setting Layout
@@ -41,8 +41,6 @@ class HomeFragment : Fragment(), SingleCoinItemClickListeners {
 
         // Api Call For Coins
         viewModelShared.getAllCoin()
-
-
 
         viewModelShared.allCoinResponse.observe(viewLifecycleOwner) {
             it?.let {

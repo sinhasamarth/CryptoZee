@@ -44,8 +44,8 @@ object DataFormat {
         }
     }
 
-    fun formatPrice(rawPrice: String): String {
-        if (rawPrice.toDouble() <= 0.01) {
+    fun formatPrice(rawPrice: String, accurateToDecimal:Boolean = false ): String {
+        if (rawPrice.toDouble() <= 0.01 && !accurateToDecimal) {
             val price = BigDecimal(rawPrice)
             return "$$price"
         }
