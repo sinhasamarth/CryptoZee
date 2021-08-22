@@ -40,7 +40,7 @@ class WalletFragment : Fragment(), SingleCoinItemClickListeners {
 
         // Tool Bar
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
-        (activity as AppCompatActivity).supportActionBar!!.title = "Market";
+        (activity as AppCompatActivity).supportActionBar!!.title = "Market"
 
 
         // Show Coins in RecyclerView
@@ -88,9 +88,13 @@ class WalletFragment : Fragment(), SingleCoinItemClickListeners {
                     binding.WalletsCoinDetails.visibility = View.VISIBLE
                     binding.coinRecyclerView.adapter = WalletCoinRecyclerViewAdapter(it, it.size, this)
                 }
-
-
         })
+
+        // Handling Buy Now Button
+
+        binding.moveToHomeButton.setOnClickListener {
+            findNavController().navigate(R.id.bottom_navigation_main)
+        }
     }
 
     @SuppressLint("InflateParams")
